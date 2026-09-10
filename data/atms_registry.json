@@ -1,0 +1,1496 @@
+[
+  {
+    "touchpoint_id": "TP_0001",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.13716,
+      76.98949
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 35,
+    "patrol_distance_km": 1.47
+  },
+  {
+    "touchpoint_id": "TP_0002",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Tata Indicash WLA",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Bus Stand Outpost",
+    "coordinates": [
+      28.06598,
+      76.98686
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 45,
+    "patrol_distance_km": 5.0
+  },
+  {
+    "touchpoint_id": "TP_0003",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.12193,
+      77.04594
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 22,
+    "patrol_distance_km": 2.94
+  },
+  {
+    "touchpoint_id": "TP_0004",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.13935,
+      76.97522
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 17,
+    "patrol_distance_km": 7.01
+  },
+  {
+    "touchpoint_id": "TP_0005",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Jharkhand Rajya Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Rural Kiosk #20",
+    "coordinates": [
+      28.11662,
+      77.06231
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 5.56
+  },
+  {
+    "touchpoint_id": "TP_0006",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Kirana Store)",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Market Chowk",
+    "coordinates": [
+      28.12074,
+      77.03546
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 8.39
+  },
+  {
+    "touchpoint_id": "TP_0007",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Mobile Shop)",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Market Chowk",
+    "coordinates": [
+      28.14965,
+      77.00301
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 24,
+    "patrol_distance_km": 3.54
+  },
+  {
+    "touchpoint_id": "TP_0008",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "State Bank of India Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Rural Kiosk #87",
+    "coordinates": [
+      28.13318,
+      77.03335
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 16,
+    "patrol_distance_km": 2.06
+  },
+  {
+    "touchpoint_id": "TP_0009",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.16195,
+      77.029
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 6.78
+  },
+  {
+    "touchpoint_id": "TP_0010",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.06621,
+      76.99655
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 7.55
+  },
+  {
+    "touchpoint_id": "TP_0011",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Airtel Payments Bank ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.12854,
+      77.00456
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 16,
+    "patrol_distance_km": 6.54
+  },
+  {
+    "touchpoint_id": "TP_0012",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Vakrangee Kendra WLA",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Bus Stand Outpost",
+    "coordinates": [
+      28.1377,
+      77.00784
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 1.87
+  },
+  {
+    "touchpoint_id": "TP_0013",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Hitachi Money Spot WLA",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Bus Stand Outpost",
+    "coordinates": [
+      28.13858,
+      77.05111
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 4.05
+  },
+  {
+    "touchpoint_id": "TP_0014",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Branch Road, Near Market",
+    "coordinates": [
+      28.10116,
+      77.06461
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 0.89
+  },
+  {
+    "touchpoint_id": "TP_0015",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Sarva Haryana Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "mewat_nuh_rural",
+    "state": "Haryana",
+    "district": "Nuh",
+    "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle",
+    "location_name": "Nuh Rural Kiosk #92",
+    "coordinates": [
+      28.13117,
+      77.0187
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 11,
+    "patrol_distance_km": 4.29
+  },
+  {
+    "touchpoint_id": "TP_0016",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Kirana Store)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Market Chowk",
+    "coordinates": [
+      23.93504,
+      86.80216
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 41,
+    "patrol_distance_km": 3.1
+  },
+  {
+    "touchpoint_id": "TP_0017",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Rural Kiosk #79",
+    "coordinates": [
+      23.9696,
+      86.76738
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 7.87
+  },
+  {
+    "touchpoint_id": "TP_0018",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "India1 Payments WLA",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Bus Stand Outpost",
+    "coordinates": [
+      23.95756,
+      86.76329
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 3.17
+  },
+  {
+    "touchpoint_id": "TP_0019",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.9965,
+      86.84679
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 35,
+    "patrol_distance_km": 6.7
+  },
+  {
+    "touchpoint_id": "TP_0020",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.95623,
+      86.80708
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 14,
+    "patrol_distance_km": 7.95
+  },
+  {
+    "touchpoint_id": "TP_0021",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Jharkhand Rajya Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Rural Kiosk #95",
+    "coordinates": [
+      23.97769,
+      86.82339
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 34,
+    "patrol_distance_km": 4.28
+  },
+  {
+    "touchpoint_id": "TP_0022",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.9151,
+      86.7542
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 41,
+    "patrol_distance_km": 1.25
+  },
+  {
+    "touchpoint_id": "TP_0023",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.91184,
+      86.78514
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 35,
+    "patrol_distance_km": 1.82
+  },
+  {
+    "touchpoint_id": "TP_0024",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Mobile Shop)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Market Chowk",
+    "coordinates": [
+      23.9658,
+      86.79937
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 7,
+    "patrol_distance_km": 5.87
+  },
+  {
+    "touchpoint_id": "TP_0025",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.94981,
+      86.83848
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 4,
+    "patrol_distance_km": 3.9
+  },
+  {
+    "touchpoint_id": "TP_0026",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.99487,
+      86.77697
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 18,
+    "patrol_distance_km": 4.36
+  },
+  {
+    "touchpoint_id": "TP_0027",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Jan Seva Kendra)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Market Chowk",
+    "coordinates": [
+      23.91624,
+      86.8329
+    ],
+    "cctv_available": true,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 35,
+    "patrol_distance_km": 7.24
+  },
+  {
+    "touchpoint_id": "TP_0028",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Kirana Store)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Market Chowk",
+    "coordinates": [
+      24.00134,
+      86.83697
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 26,
+    "patrol_distance_km": 7.75
+  },
+  {
+    "touchpoint_id": "TP_0029",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Airtel Payments Bank ATM",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Branch Road, Near Market",
+    "coordinates": [
+      23.90892,
+      86.79114
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 45,
+    "patrol_distance_km": 8.17
+  },
+  {
+    "touchpoint_id": "TP_0030",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Kirana Store)",
+    "corridor_id": "jamtara_cyber_hub",
+    "state": "Jharkhand",
+    "district": "Jamtara",
+    "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana",
+    "location_name": "Jamtara Market Chowk",
+    "coordinates": [
+      23.96428,
+      86.82394
+    ],
+    "cctv_available": true,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 4,
+    "patrol_distance_km": 5.26
+  },
+  {
+    "touchpoint_id": "TP_0031",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.69536,
+      77.07301
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 4,
+    "patrol_distance_km": 8.2
+  },
+  {
+    "touchpoint_id": "TP_0032",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.68258,
+      77.1275
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 37,
+    "patrol_distance_km": 2.7
+  },
+  {
+    "touchpoint_id": "TP_0033",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "India1 Payments WLA",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Bus Stand Outpost",
+    "coordinates": [
+      28.72594,
+      77.10992
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 21,
+    "patrol_distance_km": 2.64
+  },
+  {
+    "touchpoint_id": "TP_0034",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.73117,
+      77.098
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 30,
+    "patrol_distance_km": 5.58
+  },
+  {
+    "touchpoint_id": "TP_0035",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "India1 Payments WLA",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Bus Stand Outpost",
+    "coordinates": [
+      28.674,
+      77.12176
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 5,
+    "patrol_distance_km": 7.57
+  },
+  {
+    "touchpoint_id": "TP_0036",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "ICICI Bank ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.67977,
+      77.15137
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 5.84
+  },
+  {
+    "touchpoint_id": "TP_0037",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.74571,
+      77.09794
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 8,
+    "patrol_distance_km": 7.65
+  },
+  {
+    "touchpoint_id": "TP_0038",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Rural Kiosk #53",
+    "coordinates": [
+      28.67954,
+      77.09618
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 17,
+    "patrol_distance_km": 4.69
+  },
+  {
+    "touchpoint_id": "TP_0039",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Branch Road, Near Market",
+    "coordinates": [
+      28.75482,
+      77.07308
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 22,
+    "patrol_distance_km": 6.74
+  },
+  {
+    "touchpoint_id": "TP_0040",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Jharkhand Rajya Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Rural Kiosk #81",
+    "coordinates": [
+      28.6902,
+      77.14212
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 45,
+    "patrol_distance_km": 7.76
+  },
+  {
+    "touchpoint_id": "TP_0041",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Hitachi Money Spot WLA",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Bus Stand Outpost",
+    "coordinates": [
+      28.74746,
+      77.12625
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 24,
+    "patrol_distance_km": 7.72
+  },
+  {
+    "touchpoint_id": "TP_0042",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Rural Kiosk #97",
+    "coordinates": [
+      28.75007,
+      77.15789
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 36,
+    "patrol_distance_km": 7.61
+  },
+  {
+    "touchpoint_id": "TP_0043",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Hitachi Money Spot WLA",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Bus Stand Outpost",
+    "coordinates": [
+      28.72607,
+      77.08346
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 7.04
+  },
+  {
+    "touchpoint_id": "TP_0044",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Mobile Shop)",
+    "corridor_id": "delhi_rohini_urban",
+    "state": "Delhi",
+    "district": "North West Delhi",
+    "police_jurisdiction": "Rohini Cyber Police Station",
+    "location_name": "North West Delhi Market Chowk",
+    "coordinates": [
+      28.66648,
+      77.14166
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 43,
+    "patrol_distance_km": 7.45
+  },
+  {
+    "touchpoint_id": "TP_0045",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Paytm Payments Bank ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      13.00674,
+      77.60081
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 30,
+    "patrol_distance_km": 3.49
+  },
+  {
+    "touchpoint_id": "TP_0046",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Rural Kiosk #61",
+    "coordinates": [
+      13.01513,
+      77.61229
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 8.25
+  },
+  {
+    "touchpoint_id": "TP_0047",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Sarva Haryana Gramin Bank ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      12.99215,
+      77.62997
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 1.69
+  },
+  {
+    "touchpoint_id": "TP_0048",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Mobile Shop)",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Market Chowk",
+    "coordinates": [
+      12.94586,
+      77.68625
+    ],
+    "cctv_available": true,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 23,
+    "patrol_distance_km": 6.41
+  },
+  {
+    "touchpoint_id": "TP_0049",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      12.98862,
+      77.64114
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 28,
+    "patrol_distance_km": 0.81
+  },
+  {
+    "touchpoint_id": "TP_0050",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Jan Seva Kendra)",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Market Chowk",
+    "coordinates": [
+      12.98185,
+      77.66194
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 28,
+    "patrol_distance_km": 1.34
+  },
+  {
+    "touchpoint_id": "TP_0051",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "State Bank of India Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Rural Kiosk #48",
+    "coordinates": [
+      12.96102,
+      77.62139
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 21,
+    "patrol_distance_km": 3.9
+  },
+  {
+    "touchpoint_id": "TP_0052",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Fino Payments Bank ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      12.94073,
+      77.63204
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 5.54
+  },
+  {
+    "touchpoint_id": "TP_0053",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      12.98279,
+      77.59004
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 42,
+    "patrol_distance_km": 3.28
+  },
+  {
+    "touchpoint_id": "TP_0054",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Hitachi Money Spot WLA",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Bus Stand Outpost",
+    "coordinates": [
+      12.99556,
+      77.64112
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 43,
+    "patrol_distance_km": 5.67
+  },
+  {
+    "touchpoint_id": "TP_0055",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "bengaluru_east_tech",
+    "state": "Karnataka",
+    "district": "Bengaluru Urban",
+    "police_jurisdiction": "East Cyber Crime Police Station (Indiranagar/Whitefield)",
+    "location_name": "Bengaluru Urban Branch Road, Near Market",
+    "coordinates": [
+      13.00984,
+      77.66511
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 2,
+    "patrol_distance_km": 1.16
+  },
+  {
+    "touchpoint_id": "TP_0056",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Rural Kiosk #99",
+    "coordinates": [
+      21.23185,
+      72.83554
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 10,
+    "patrol_distance_km": 5.85
+  },
+  {
+    "touchpoint_id": "TP_0057",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.2301,
+      72.867
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 45,
+    "patrol_distance_km": 4.79
+  },
+  {
+    "touchpoint_id": "TP_0058",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.17992,
+      72.87483
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 36,
+    "patrol_distance_km": 5.38
+  },
+  {
+    "touchpoint_id": "TP_0059",
+    "touchpoint_type": "MICRO_ATM_MERCHANT",
+    "institution_name": "Retail Micro-ATM Merchant Point (Jan Seva Kendra)",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Market Chowk",
+    "coordinates": [
+      21.24414,
+      72.85127
+    ],
+    "cctv_available": false,
+    "operating_hours": "08:00-21:00",
+    "historical_cashout_count": 36,
+    "patrol_distance_km": 4.23
+  },
+  {
+    "touchpoint_id": "TP_0060",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "ICICI Bank ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.24115,
+      72.83501
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 34,
+    "patrol_distance_km": 4.53
+  },
+  {
+    "touchpoint_id": "TP_0061",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.19899,
+      72.86135
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 1.42
+  },
+  {
+    "touchpoint_id": "TP_0062",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.1933,
+      72.80528
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 30,
+    "patrol_distance_km": 4.0
+  },
+  {
+    "touchpoint_id": "TP_0063",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.19701,
+      72.88048
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 6.7
+  },
+  {
+    "touchpoint_id": "TP_0064",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "ICICI Bank ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.15559,
+      72.82518
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 4.03
+  },
+  {
+    "touchpoint_id": "TP_0065",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Punjab National Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Rural Kiosk #72",
+    "coordinates": [
+      21.20961,
+      72.85033
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 2,
+    "patrol_distance_km": 3.79
+  },
+  {
+    "touchpoint_id": "TP_0066",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Jharkhand Rajya Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Rural Kiosk #26",
+    "coordinates": [
+      21.23481,
+      72.86242
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 26,
+    "patrol_distance_km": 5.36
+  },
+  {
+    "touchpoint_id": "TP_0067",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Jharkhand Rajya Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Rural Kiosk #33",
+    "coordinates": [
+      21.16339,
+      72.83286
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 14,
+    "patrol_distance_km": 4.3
+  },
+  {
+    "touchpoint_id": "TP_0068",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Fino Payments Bank ATM",
+    "corridor_id": "surat_trade_hub",
+    "state": "Gujarat",
+    "district": "Surat",
+    "police_jurisdiction": "Surat City Cyber Crime Cell (Varachha)",
+    "location_name": "Surat Branch Road, Near Market",
+    "coordinates": [
+      21.24296,
+      72.81783
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 4.42
+  },
+  {
+    "touchpoint_id": "TP_0069",
+    "touchpoint_type": "WHITE_LABEL_ATM",
+    "institution_name": "Tata Indicash WLA",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Bus Stand Outpost",
+    "coordinates": [
+      27.79999,
+      76.835
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 2,
+    "patrol_distance_km": 8.11
+  },
+  {
+    "touchpoint_id": "TP_0070",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.70204,
+      76.81524
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 14,
+    "patrol_distance_km": 4.38
+  },
+  {
+    "touchpoint_id": "TP_0071",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Fino Payments Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.73689,
+      76.86059
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 2.06
+  },
+  {
+    "touchpoint_id": "TP_0072",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "HDFC Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.75787,
+      76.89289
+    ],
+    "cctv_available": false,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 13,
+    "patrol_distance_km": 1.39
+  },
+  {
+    "touchpoint_id": "TP_0073",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "Sarva Haryana Gramin Bank Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Rural Kiosk #97",
+    "coordinates": [
+      27.76272,
+      76.81019
+    ],
+    "cctv_available": false,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 37,
+    "patrol_distance_km": 6.83
+  },
+  {
+    "touchpoint_id": "TP_0074",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.74284,
+      76.83706
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 7.13
+  },
+  {
+    "touchpoint_id": "TP_0075",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Paytm Payments Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.79608,
+      76.86356
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 34,
+    "patrol_distance_km": 8.23
+  },
+  {
+    "touchpoint_id": "TP_0076",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.78082,
+      76.85382
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 18,
+    "patrol_distance_km": 3.28
+  },
+  {
+    "touchpoint_id": "TP_0077",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Punjab National Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.79346,
+      76.82789
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 43,
+    "patrol_distance_km": 3.72
+  },
+  {
+    "touchpoint_id": "TP_0078",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.7851,
+      76.81818
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 39,
+    "patrol_distance_km": 6.2
+  },
+  {
+    "touchpoint_id": "TP_0079",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.70102,
+      76.89481
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 16,
+    "patrol_distance_km": 6.12
+  },
+  {
+    "touchpoint_id": "TP_0080",
+    "touchpoint_type": "CSP_BANK_MITRA",
+    "institution_name": "State Bank of India Grahak Seva Kendra (CSP Mitra)",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Rural Kiosk #47",
+    "coordinates": [
+      27.74908,
+      76.87929
+    ],
+    "cctv_available": true,
+    "operating_hours": "09:30-17:30",
+    "historical_cashout_count": 20,
+    "patrol_distance_km": 5.91
+  },
+  {
+    "touchpoint_id": "TP_0081",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Jharkhand Rajya Gramin Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.75535,
+      76.83438
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 30,
+    "patrol_distance_km": 2.89
+  },
+  {
+    "touchpoint_id": "TP_0082",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "State Bank of India ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.71207,
+      76.81926
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 0,
+    "patrol_distance_km": 2.23
+  },
+  {
+    "touchpoint_id": "TP_0083",
+    "touchpoint_type": "BANK_ATM",
+    "institution_name": "Sarva Haryana Gramin Bank ATM",
+    "corridor_id": "alwar_border_zone",
+    "state": "Rajasthan",
+    "district": "Alwar",
+    "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle",
+    "location_name": "Alwar Branch Road, Near Market",
+    "coordinates": [
+      27.74842,
+      76.87246
+    ],
+    "cctv_available": true,
+    "operating_hours": "24x7",
+    "historical_cashout_count": 7,
+    "patrol_distance_km": 7.21
+  }
+]

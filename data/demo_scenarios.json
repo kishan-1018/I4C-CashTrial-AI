@@ -1,0 +1,287 @@
+[
+  {
+    "complaint_id": "NCRP-DEMO-2026-01",
+    "reported_channel": "NCRP_1930_HELPLINE",
+    "scam_category": "DIGITAL_ARREST",
+    "origin_jurisdiction": {
+      "state": "Karnataka",
+      "district": "Bengaluru Urban",
+      "police_station": "Bengaluru Urban Cyber Crime PS"
+    },
+    "incident_timestamp": "2026-09-09T14:07:25.262632+05:30",
+    "report_timestamp": "2026-09-09T14:35:25.262632+05:30",
+    "reporting_delay_minutes": 28,
+    "disputed_amount_inr": 350000,
+    "transaction_mode": "UPI",
+    "primary_utr": "437341501680",
+    "transaction_chain": [
+      {
+        "hop_number": 1,
+        "sender_account": "ACC58851081",
+        "sender_vpa": "victim_5284@sbi",
+        "receiver_account": "PYTM59691228",
+        "receiver_vpa": "mule_h1_5318@axisbank",
+        "bank_name": "Paytm Payments Bank",
+        "ifsc": "PYTM0123456",
+        "branch_state": "West Bengal",
+        "branch_city": "Kolkata",
+        "amount_inr": 350000,
+        "utr_number": "437341501680",
+        "timestamp": "2026-09-09T14:14:25.262632+05:30",
+        "velocity_mins": 7
+      },
+      {
+        "hop_number": 2,
+        "sender_account": "PYTM59691228",
+        "sender_vpa": "mule_h1_5318@axisbank",
+        "receiver_account": "SBIN20340193",
+        "receiver_vpa": "mule_h2_9853@ybl",
+        "bank_name": "State Bank of India",
+        "ifsc": "SBIN0001234",
+        "branch_state": "Assam",
+        "branch_city": "Guwahati",
+        "amount_inr": 350000,
+        "utr_number": "498128051318",
+        "timestamp": "2026-09-09T14:21:25.262632+05:30",
+        "velocity_mins": 7
+      },
+      {
+        "hop_number": 3,
+        "sender_account": "SBIN20340193",
+        "sender_vpa": "mule_h2_9853@ybl",
+        "receiver_account": "PUNB87706490",
+        "receiver_vpa": "mule_h3_5045@ibl",
+        "bank_name": "Punjab National Bank",
+        "ifsc": "PUNB0005678",
+        "branch_state": "Haryana",
+        "branch_city": "Nuh",
+        "amount_inr": 350000,
+        "utr_number": "413122968305",
+        "timestamp": "2026-09-09T14:37:25.262632+05:30",
+        "velocity_mins": 10
+      }
+    ],
+    "ground_truth": {
+      "corridor_id": "mewat_nuh_rural",
+      "target_touchpoint_id": "TP_0013",
+      "target_touchpoint_type": "WHITE_LABEL_ATM",
+      "target_touchpoint_name": "Hitachi Money Spot WLA",
+      "destination_jurisdiction": {
+        "state": "Haryana",
+        "district": "Nuh",
+        "police_jurisdiction": "Nuh District Cyber Crime PS / Tauru Circle"
+      }
+    },
+    "data_status": "DEMONSTRATION DATA \u2014 SYNTHETIC / NON-OPERATIONAL"
+  },
+  {
+    "complaint_id": "NCRP-DEMO-2026-02",
+    "reported_channel": "NCRP_1930_HELPLINE",
+    "scam_category": "ELECTRICITY_KYC_APK_FRAUD",
+    "origin_jurisdiction": {
+      "state": "Maharashtra",
+      "district": "Pune",
+      "police_station": "Pune Cyber Crime PS"
+    },
+    "incident_timestamp": "2026-09-09T14:00:25.262632+05:30",
+    "report_timestamp": "2026-09-09T14:35:25.262632+05:30",
+    "reporting_delay_minutes": 35,
+    "disputed_amount_inr": 95000,
+    "transaction_mode": "UPI",
+    "primary_utr": "473496565865",
+    "transaction_chain": [
+      {
+        "hop_number": 1,
+        "sender_account": "ACC24067040",
+        "sender_vpa": "victim_9771@ybl",
+        "receiver_account": "PYTM56753777",
+        "receiver_vpa": "mule_h1_4732@sbi",
+        "bank_name": "Paytm Payments Bank",
+        "ifsc": "PYTM0123456",
+        "branch_state": "West Bengal",
+        "branch_city": "Kolkata",
+        "amount_inr": 95000,
+        "utr_number": "473496565865",
+        "timestamp": "2026-09-09T14:10:25.262632+05:30",
+        "velocity_mins": 10
+      },
+      {
+        "hop_number": 2,
+        "sender_account": "PYTM56753777",
+        "sender_vpa": "mule_h1_4732@sbi",
+        "receiver_account": "SBIN46122478",
+        "receiver_vpa": "mule_h2_4669@axisbank",
+        "bank_name": "State Bank of India",
+        "ifsc": "SBIN0001234",
+        "branch_state": "Assam",
+        "branch_city": "Guwahati",
+        "amount_inr": 95000,
+        "utr_number": "458817140578",
+        "timestamp": "2026-09-09T14:18:25.262632+05:30",
+        "velocity_mins": 9
+      },
+      {
+        "hop_number": 3,
+        "sender_account": "SBIN46122478",
+        "sender_vpa": "mule_h2_4669@axisbank",
+        "receiver_account": "PUNB89331123",
+        "receiver_vpa": "mule_h3_8174@axisbank",
+        "bank_name": "Punjab National Bank",
+        "ifsc": "PUNB0005678",
+        "branch_state": "Jharkhand",
+        "branch_city": "Jamtara",
+        "amount_inr": 95000,
+        "utr_number": "444618678217",
+        "timestamp": "2026-09-09T14:12:25.262632+05:30",
+        "velocity_mins": 4
+      }
+    ],
+    "ground_truth": {
+      "corridor_id": "jamtara_cyber_hub",
+      "target_touchpoint_id": "TP_0028",
+      "target_touchpoint_type": "MICRO_ATM_MERCHANT",
+      "target_touchpoint_name": "Retail Micro-ATM Merchant Point (Kirana Store)",
+      "destination_jurisdiction": {
+        "state": "Jharkhand",
+        "district": "Jamtara",
+        "police_jurisdiction": "Jamtara Cyber Crime PS / Karmatanr Thana"
+      }
+    },
+    "data_status": "DEMONSTRATION DATA \u2014 SYNTHETIC / NON-OPERATIONAL"
+  },
+  {
+    "complaint_id": "NCRP-DEMO-2026-03",
+    "reported_channel": "NCRP_1930_HELPLINE",
+    "scam_category": "INVESTMENT_STOCK_SCAM",
+    "origin_jurisdiction": {
+      "state": "Telangana",
+      "district": "Hyderabad",
+      "police_station": "Hyderabad Cyber Crime PS"
+    },
+    "incident_timestamp": "2026-09-09T13:53:25.262632+05:30",
+    "report_timestamp": "2026-09-09T14:35:25.262632+05:30",
+    "reporting_delay_minutes": 42,
+    "disputed_amount_inr": 780000,
+    "transaction_mode": "UPI",
+    "primary_utr": "406557568410",
+    "transaction_chain": [
+      {
+        "hop_number": 1,
+        "sender_account": "ACC97278778",
+        "sender_vpa": "victim_8347@ibl",
+        "receiver_account": "PYTM29848134",
+        "receiver_vpa": "mule_h1_6695@axisbank",
+        "bank_name": "Paytm Payments Bank",
+        "ifsc": "PYTM0123456",
+        "branch_state": "West Bengal",
+        "branch_city": "Kolkata",
+        "amount_inr": 780000,
+        "utr_number": "406557568410",
+        "timestamp": "2026-09-09T13:56:25.262632+05:30",
+        "velocity_mins": 3
+      },
+      {
+        "hop_number": 2,
+        "sender_account": "PYTM29848134",
+        "sender_vpa": "mule_h1_6695@axisbank",
+        "receiver_account": "SBIN43824487",
+        "receiver_vpa": "mule_h2_5523@ibl",
+        "bank_name": "State Bank of India",
+        "ifsc": "SBIN0001234",
+        "branch_state": "Assam",
+        "branch_city": "Guwahati",
+        "amount_inr": 780000,
+        "utr_number": "497013701318",
+        "timestamp": "2026-09-09T14:15:25.262632+05:30",
+        "velocity_mins": 11
+      }
+    ],
+    "ground_truth": {
+      "corridor_id": "delhi_rohini_urban",
+      "target_touchpoint_id": "TP_0031",
+      "target_touchpoint_type": "BANK_ATM",
+      "target_touchpoint_name": "Punjab National Bank ATM",
+      "destination_jurisdiction": {
+        "state": "Delhi",
+        "district": "North West Delhi",
+        "police_jurisdiction": "Rohini Cyber Police Station"
+      }
+    },
+    "data_status": "DEMONSTRATION DATA \u2014 SYNTHETIC / NON-OPERATIONAL"
+  },
+  {
+    "complaint_id": "NCRP-DEMO-2026-04",
+    "reported_channel": "NCRP_1930_HELPLINE",
+    "scam_category": "SEXTORTION_VIDEO_BLACKMAIL",
+    "origin_jurisdiction": {
+      "state": "Delhi",
+      "district": "South West Delhi",
+      "police_station": "South West Delhi Cyber Crime PS"
+    },
+    "incident_timestamp": "2026-09-09T14:16:25.262632+05:30",
+    "report_timestamp": "2026-09-09T14:35:25.262632+05:30",
+    "reporting_delay_minutes": 19,
+    "disputed_amount_inr": 45000,
+    "transaction_mode": "UPI",
+    "primary_utr": "431782262247",
+    "transaction_chain": [
+      {
+        "hop_number": 1,
+        "sender_account": "ACC27898844",
+        "sender_vpa": "victim_8058@sbi",
+        "receiver_account": "PYTM70681408",
+        "receiver_vpa": "mule_h1_4525@sbi",
+        "bank_name": "Paytm Payments Bank",
+        "ifsc": "PYTM0123456",
+        "branch_state": "West Bengal",
+        "branch_city": "Kolkata",
+        "amount_inr": 45000,
+        "utr_number": "431782262247",
+        "timestamp": "2026-09-09T14:28:25.262632+05:30",
+        "velocity_mins": 12
+      },
+      {
+        "hop_number": 2,
+        "sender_account": "PYTM70681408",
+        "sender_vpa": "mule_h1_4525@sbi",
+        "receiver_account": "SBIN41214258",
+        "receiver_vpa": "mule_h2_5991@ybl",
+        "bank_name": "State Bank of India",
+        "ifsc": "SBIN0001234",
+        "branch_state": "Assam",
+        "branch_city": "Guwahati",
+        "amount_inr": 45000,
+        "utr_number": "458378176556",
+        "timestamp": "2026-09-09T14:32:25.262632+05:30",
+        "velocity_mins": 8
+      },
+      {
+        "hop_number": 3,
+        "sender_account": "SBIN41214258",
+        "sender_vpa": "mule_h2_5991@ybl",
+        "receiver_account": "PUNB88768688",
+        "receiver_vpa": "mule_h3_3363@ibl",
+        "bank_name": "Punjab National Bank",
+        "ifsc": "PUNB0005678",
+        "branch_state": "Rajasthan",
+        "branch_city": "Alwar",
+        "amount_inr": 45000,
+        "utr_number": "432210909370",
+        "timestamp": "2026-09-09T14:49:25.262632+05:30",
+        "velocity_mins": 11
+      }
+    ],
+    "ground_truth": {
+      "corridor_id": "alwar_border_zone",
+      "target_touchpoint_id": "TP_0075",
+      "target_touchpoint_type": "BANK_ATM",
+      "target_touchpoint_name": "Paytm Payments Bank ATM",
+      "destination_jurisdiction": {
+        "state": "Rajasthan",
+        "district": "Alwar",
+        "police_jurisdiction": "Bhiwadi Cyber Crime Cell / Tijara Circle"
+      }
+    },
+    "data_status": "DEMONSTRATION DATA \u2014 SYNTHETIC / NON-OPERATIONAL"
+  }
+]

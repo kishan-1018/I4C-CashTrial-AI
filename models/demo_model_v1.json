@@ -1,0 +1,121 @@
+{
+  "model_type": "PurePythonCorridorClassifier",
+  "version": "v1.0.0-pure-python",
+  "corridors": [
+    "mewat_nuh_rural",
+    "jamtara_cyber_hub",
+    "delhi_rohini_urban",
+    "bengaluru_east_tech",
+    "alwar_border_zone",
+    "surat_trade_hub"
+  ],
+  "scams": [
+    "DIGITAL_ARREST",
+    "INVESTMENT_STOCK_SCAM",
+    "SEXTORTION_VIDEO_BLACKMAIL",
+    "ELECTRICITY_KYC_APK_FRAUD",
+    "TELEGRAM_PART_TIME_TASK",
+    "LOAN_APP_EXTORTION",
+    "UPI_QR_OLX_FRAUD"
+  ],
+  "priors": {
+    "mewat_nuh_rural": 0.2025,
+    "jamtara_cyber_hub": 0.185,
+    "delhi_rohini_urban": 0.1775,
+    "bengaluru_east_tech": 0.1375,
+    "alwar_border_zone": 0.17,
+    "surat_trade_hub": 0.1275
+  },
+  "scam_likelihoods": {
+    "mewat_nuh_rural": {
+      "DIGITAL_ARREST": 0.022727272727272728,
+      "INVESTMENT_STOCK_SCAM": 0.011363636363636364,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.3409090909090909,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.045454545454545456,
+      "TELEGRAM_PART_TIME_TASK": 0.045454545454545456,
+      "LOAN_APP_EXTORTION": 0.2159090909090909,
+      "UPI_QR_OLX_FRAUD": 0.3181818181818182
+    },
+    "jamtara_cyber_hub": {
+      "DIGITAL_ARREST": 0.06172839506172839,
+      "INVESTMENT_STOCK_SCAM": 0.024691358024691357,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.06172839506172839,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.48148148148148145,
+      "TELEGRAM_PART_TIME_TASK": 0.32098765432098764,
+      "LOAN_APP_EXTORTION": 0.024691358024691357,
+      "UPI_QR_OLX_FRAUD": 0.024691358024691357
+    },
+    "delhi_rohini_urban": {
+      "DIGITAL_ARREST": 0.3076923076923077,
+      "INVESTMENT_STOCK_SCAM": 0.23076923076923078,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.02564102564102564,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.038461538461538464,
+      "TELEGRAM_PART_TIME_TASK": 0.2948717948717949,
+      "LOAN_APP_EXTORTION": 0.05128205128205128,
+      "UPI_QR_OLX_FRAUD": 0.05128205128205128
+    },
+    "bengaluru_east_tech": {
+      "DIGITAL_ARREST": 0.3548387096774194,
+      "INVESTMENT_STOCK_SCAM": 0.24193548387096775,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.06451612903225806,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.04838709677419355,
+      "TELEGRAM_PART_TIME_TASK": 0.08064516129032258,
+      "LOAN_APP_EXTORTION": 0.11290322580645161,
+      "UPI_QR_OLX_FRAUD": 0.0967741935483871
+    },
+    "alwar_border_zone": {
+      "DIGITAL_ARREST": 0.06666666666666667,
+      "INVESTMENT_STOCK_SCAM": 0.06666666666666667,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.3466666666666667,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.02666666666666667,
+      "TELEGRAM_PART_TIME_TASK": 0.09333333333333334,
+      "LOAN_APP_EXTORTION": 0.12,
+      "UPI_QR_OLX_FRAUD": 0.28
+    },
+    "surat_trade_hub": {
+      "DIGITAL_ARREST": 0.034482758620689655,
+      "INVESTMENT_STOCK_SCAM": 0.3448275862068966,
+      "SEXTORTION_VIDEO_BLACKMAIL": 0.034482758620689655,
+      "ELECTRICITY_KYC_APK_FRAUD": 0.08620689655172414,
+      "TELEGRAM_PART_TIME_TASK": 0.034482758620689655,
+      "LOAN_APP_EXTORTION": 0.39655172413793105,
+      "UPI_QR_OLX_FRAUD": 0.06896551724137931
+    }
+  },
+  "state_affinities": {
+    "mewat_nuh_rural": [
+      "haryana",
+      "rajasthan",
+      "delhi"
+    ],
+    "jamtara_cyber_hub": [
+      "jharkhand",
+      "bihar",
+      "west bengal"
+    ],
+    "delhi_rohini_urban": [
+      "delhi",
+      "haryana",
+      "uttar pradesh"
+    ],
+    "bengaluru_east_tech": [
+      "karnataka",
+      "tamil nadu",
+      "telangana"
+    ],
+    "alwar_border_zone": [
+      "rajasthan",
+      "haryana"
+    ],
+    "surat_trade_hub": [
+      "gujarat",
+      "maharashtra"
+    ]
+  },
+  "metrics": {
+    "validation_top1_accuracy": 0.58,
+    "validation_top3_accuracy": 0.84,
+    "dataset_split": "train=400, val=100, test=100",
+    "evaluation_boundary": "internal-consistency validation on synthetic data only"
+  }
+}

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I4C Cybercrime Predictive Cash-Out Decision Support System</title>
+  
+  <!-- Modern Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet GIS Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <!-- Custom Tactical Dashboard Theme -->
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+
+  <!-- Top Navigation Command Bar -->
+  <header class="top-nav">
+    <div class="brand-section">
+      <span class="brand-badge">I4C / MHA</span>
+      <div>
+        <h1 class="brand-title">CYBERCRIME PREDICTIVE CASH-OUT DECISION-SUPPORT SYSTEM</h1>
+        <p class="brand-subtitle">PS ID 26184 • Rapid Response Triage &amp; Inter-State Coordination</p>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+      <!-- 1-Click Interactive Guided Tour Button -->
+      <button id="btn-run-tour" class="btn-tour">
+        <span>⚡</span> Run Live Scam Case Simulation
+      </button>
+
+      <!-- Report Cyber Fraud / Victim Intake & Tracking -->
+      <button id="btn-open-intake" class="btn-primary-action" style="padding: 6px 14px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 0 14px var(--cyan-glow);">
+        <span>🛡️</span> Report Fraud / Track Input
+      </button>
+
+      <div class="status-pill">
+        <div class="pulse-dot"></div>
+        <span id="status-live-text">● LIVE REAL-TIME FEED</span>
+      </div>
+
+      <!-- Role Selector — drives which dashboard is shown -->
+      <select id="user-role-select" class="custom-select" style="width: 210px; font-weight: 600;">
+        <option value="INVESTIGATOR">👮 Investigator (Law Enforcement)</option>
+        <option value="VICTIM">👤 Victim / Citizen</option>
+        <option value="ADMIN">⚙️ System Admin</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!--  VIEW 1: INVESTIGATOR — Tactical Command Center (existing layout)         -->
+  <!-- ========================================================================= -->
+  <main id="view-investigator" class="main-layout role-view active-view">
+    
+    <!-- LEFT PANEL: Incident Queue & Spatial Filters -->
+    <aside class="panel">
+      <div class="panel-header">
+        <span class="panel-title">
+          <span>🚨</span> Live Alert Feed
+        </span>
+        <button id="btn-simulate-modal" class="btn-secondary-action" style="padding: 3px 8px; font-size: 11px;">
+          + Report Fraud
+        </button>
+      </div>
+
+      <div class="panel-content">
+        <!-- Search & Filters — Filtered Complaint Pool -->
+        <div class="filter-group">
+          <label class="filter-label">🔎 Filtered Complaint Pool</label>
+          <input type="text" id="input-search" class="custom-input" placeholder="Search Complaint #, UTR, VPA...">
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Origin State (Victim)</label>
+          <select id="filter-state" class="custom-select">
+            <option value="ALL">All States (Pan-India)</option>
+            <optgroup label="Metro / High Cybercrime States">
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Delhi">Delhi NCR</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Haryana">Haryana</option>
+            </optgroup>
+            <optgroup label="Major States">
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Assam">Assam</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Goa">Goa</option>
+            </optgroup>
+            <optgroup label="North-East States">
+              <option value="Tripura">Tripura</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Sikkim">Sikkim</option>
+            </optgroup>
+            <optgroup label="Union Territories">
+              <option value="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+              <option value="Ladakh">Ladakh</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Puducherry">Puducherry</option>
+              <option value="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+              <option value="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+              <option value="Daman &amp; Diu">Daman &amp; Diu</option>
+              <option value="Lakshadweep">Lakshadweep</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Crime Typology</label>
+          <select id="filter-typology" class="custom-select">
+            <option value="ALL">All Typologies</option>
+            <option value="DIGITAL_ARREST">Digital Arrest (CBI/ED)</option>
+            <option value="INVESTMENT_STOCK_SCAM">Investment / Stock Scam</option>
+            <option value="SEXTORTION_VIDEO_BLACKMAIL">Sextortion / Blackmail</option>
+            <option value="ELECTRICITY_KYC_APK_FRAUD">Electricity / KYC APK</option>
+            <option value="LOAN_APP_EXTORTION">Loan App Extortion</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Touchpoint Modality</label>
+          <select id="filter-touchpoint" class="custom-select">
+            <option value="ALL">All Touchpoints (ATMs/CSPs)</option>
+            <option value="BANK_ATM">Scheduled Bank ATMs</option>
+            <option value="WHITE_LABEL_ATM">White-Label ATMs (WLAs)</option>
+            <option value="CSP_BANK_MITRA">CSP / Bank Mitras</option>
+            <option value="MICRO_ATM_MERCHANT">Merchant Micro-ATMs</option>
+          </select>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0;"/>
+
+        <label class="filter-label">Active NCRP 1930 Incidents Queue</label>
+        <div id="incident-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Dynamically populated incident cards -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER STAGE: Real-Time Predictive Heatmap & Force-Directed Graph -->
+    <section class="center-canvas">
+      <!-- Canvas Toolbar -->
+      <div class="canvas-toolbar">
+        <div class="view-tabs">
+          <button id="tab-map" class="tab-btn active">🗺️ Real-Time Predictive Heatmap</button>
+          <button id="tab-graph" class="tab-btn">🕸️ 3-Hop Mule Network Graph</button>
+        </div>
+        <div style="font-size: 11px; color: var(--text-secondary);">
+          Coordinates: <span style="color: var(--cyan);">OSM &amp; India GADM Grounded</span>
+        </div>
+      </div>
+
+      <!-- Map Container -->
+      <div id="map-container"></div>
+
+      <!-- Graph Container -->
+      <div id="graph-container"></div>
+
+      <!-- Playback Scrub Bar -->
+      <div class="scrub-bar-container">
+        <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">24H TIMELINE:</span>
+        <input type="range" min="0" max="24" value="14" class="scrub-slider" id="timeline-slider">
+        <span style="font-size: 11px; color: var(--cyan); font-family: var(--font-mono);">14:00 IST (PEAK)</span>
+      </div>
+
+      <!-- Guided Tour Stepper Overlay -->
+      <div id="tour-stepper" class="tour-stepper-bar">
+        <div class="tour-steps-list">
+          <div class="tour-step-dot active">1</div>
+          <div class="tour-step-dot">2</div>
+          <div class="tour-step-dot">3</div>
+          <div class="tour-step-dot">4</div>
+          <div class="tour-step-dot">5</div>
+        </div>
+        <div id="tour-step-text" class="tour-step-text">
+          <b>Step 1/5:</b> 1930 NCRP Complaint Ingested (Bengaluru, Karnataka)
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button id="tour-btn-prev" class="btn-secondary-action" style="padding: 4px 10px; font-size: 11px;">Back</button>
+          <button id="tour-btn-next" class="btn-primary-action" style="padding: 4px 14px; font-size: 11px;">Next Step →</button>
+          <button id="tour-btn-close" class="btn-secondary-action" style="padding: 4px 8px; font-size: 11px;">✕</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Case Action Center -->
+    <aside class="panel panel-right" id="panel-decision">
+      <div class="panel-header">
+        <span class="panel-title">
+          <span>🧠</span> Case Action Center
+        </span>
+        <span id="val-priority-badge" class="badge-priority badge-high">HIGH PRIORITY</span>
+      </div>
+
+      <div class="panel-content">
+        <!-- Selected Case Header -->
+        <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <span style="font-size: 11px; color: var(--text-muted);">Selected Case:</span>
+          <span id="val-incident-id" style="font-family: var(--font-mono); font-weight: 700; color: var(--cyan);">NCRP-DEMO-01</span>
+        </div>
+
+        <!-- 4-Tier Explainability Cards -->
+
+        <!-- Tier 1: Observed -->
+        <div class="xai-card xai-observed">
+          <div class="xai-tier-header">
+            <span>👁️ 1. Observed (Incident Facts)</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Disputed Loss:</span>
+            <span class="xai-stat-val" id="obs-amount">INR 350,000</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Typology:</span>
+            <span class="xai-stat-val" id="obs-scam">Digital Arrest</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Complainant State:</span>
+            <span class="xai-stat-val" id="obs-origin">Karnataka</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Primary UTR:</span>
+            <span class="xai-stat-val" id="obs-utr" style="font-family: var(--font-mono); font-size: 11px;">429810983120</span>
+          </div>
+        </div>
+
+        <!-- Tier 2: Derived -->
+        <div class="xai-card xai-derived">
+          <div class="xai-tier-header">
+            <span>🔗 2. Derived (Network Indicators)</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Reporting Delay:</span>
+            <span class="xai-stat-val" id="der-delay">28 minutes</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Multi-Rail Hops:</span>
+            <span class="xai-stat-val" id="der-hops">3 hops</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Transfer Velocity:</span>
+            <span class="xai-stat-val" id="der-velocity">6.2 mins / hop</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Inter-State Transit:</span>
+            <span class="xai-stat-val" id="der-transit" style="color: var(--amber);">YES (KA -> WB -> AS -> HR)</span>
+          </div>
+        </div>
+
+        <!-- Tier 3: Predicted -->
+        <div class="xai-card xai-predicted">
+          <div class="xai-tier-header">
+            <span>🔮 3. Predicted (Hotspots &amp; Window)</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Primary Corridor:</span>
+            <span class="xai-stat-val" id="pred-corridor" style="color: var(--cyan);">Mewat-Nuh (79.0%)</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Alternatives:</span>
+            <span class="xai-stat-val" id="pred-alternatives">Alwar (13%), Mathura (8%)</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Destination Patrol ETA:</span>
+            <span class="xai-stat-val" id="pred-patrol-eta" style="color: var(--emerald);">7–12 minutes</span>
+          </div>
+          <div class="xai-stat-row">
+            <span class="xai-stat-label">Withdrawal Window:</span>
+            <span class="xai-stat-val" id="pred-window" style="color: var(--coral);">~20 mins remaining</span>
+          </div>
+        </div>
+
+        <!-- Tier 4: Recommended -->
+        <div class="xai-card xai-recommended">
+          <div class="xai-tier-header">
+            <span>🎯 4. Recommended (Advisory Action)</span>
+          </div>
+          <div id="rec-action-summary" style="font-size: 11.5px; color: var(--text-primary); font-weight: 500;">
+            Route Inter-State Tactical Alert via I4C Samanvay &amp; Issue Section 94 BNSS CCTV Notice to Punhana Market CSP.
+          </div>
+        </div>
+
+        <!-- Review Report Section (auto-generated when a complaint is selected) -->
+        <div id="review-report-section" style="display:none;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--cyan); letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <span>🔬</span> Investigator Review Report
+            <span id="review-report-badge" style="margin-left:auto; font-size:10px; padding:2px 7px; border-radius:10px; background:rgba(0,229,255,0.15); color:var(--cyan); font-weight:700;">AI GENERATED</span>
+          </div>
+
+          <!-- Validation Summary -->
+          <div id="rr-validation-card" style="background:rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:8px 10px; margin-bottom:8px;">
+            <div style="font-size:10.5px; font-weight:700; color:var(--emerald); margin-bottom:4px;">✅ Validation Status</div>
+            <div id="rr-validation-summary" style="font-size:11px; color:var(--text-primary);">—</div>
+            <div style="display:flex; gap:8px; margin-top:6px; flex-wrap:wrap;" id="rr-validation-meta"></div>
+          </div>
+
+          <!-- Corridor Prediction Summary -->
+          <div style="background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.15); border-radius:6px; padding:8px 10px; margin-bottom:8px;">
+            <div style="font-size:10.5px; font-weight:700; color:var(--cyan); margin-bottom:4px;">🔮 Predicted Cash-Out Corridor</div>
+            <div id="rr-corridor" style="font-size:13px; font-weight:700; color:var(--text-primary);">—</div>
+            <div id="rr-corridor-state" style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">—</div>
+            <div id="rr-corridor-alts" style="font-size:10.5px; color:var(--text-secondary); margin-top:4px;">—</div>
+          </div>
+
+          <!-- Ranked ATMs / Cash-Out Points -->
+          <div style="font-size:10.5px; font-weight:700; color:var(--amber); margin-bottom:6px;">📍 Ranked ATMs / Cash-Out Points in Corridor</div>
+          <div id="rr-atm-list" style="display:flex; flex-direction:column; gap:5px; margin-bottom:8px;"></div>
+
+          <!-- Recommended Action -->
+          <div id="rr-recommended" style="background:rgba(255,165,0,0.06); border:1px solid rgba(255,165,0,0.2); border-radius:6px; padding:8px 10px; margin-bottom:10px;">
+            <div style="font-size:10.5px; font-weight:700; color:var(--amber); margin-bottom:3px;">🎯 Recommended Action</div>
+            <div id="rr-action-text" style="font-size:11px; color:var(--text-primary);">—</div>
+          </div>
+        </div>
+
+        <!-- Ranked Candidate Touchpoints -->
+        <div class="filter-group">
+          <label class="filter-label">Top Ranked Candidate Cash-Out Points</label>
+          <div id="ranked-touchpoints-list" style="display: flex; flex-direction: column; gap: 6px;">
+            <!-- Dynamically populated touchpoint rankings -->
+          </div>
+        </div>
+
+        <!-- Human Review Actions -->
+        <div class="action-btn-group">
+          <button id="btn-approve-alert" class="btn-primary-action" style="background:linear-gradient(135deg,#00e5ff22,#00e5ff11); border-color:var(--cyan);">
+            <span>✅</span> Approve &amp; Send Alerts (LEAs / Banks)
+          </button>
+          <button id="btn-prepare-req" class="btn-secondary-action">
+            <span>📄</span> Prepare Requisitions (CFCFRMS / BNSS 94)
+          </button>
+          <button id="btn-download-pdf" class="btn-secondary-action">
+            <span>📥</span> Download Forensic Integrity Dossier (PDF)
+          </button>
+          <button id="btn-override" class="btn-secondary-action" style="color: var(--coral); border-color: rgba(255, 61, 113, 0.3);">
+            <span>❌</span> Reject &amp; Re-validate (with Reason)
+          </button>
+        </div>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!--  VIEW 2: VICTIM — Citizen Safety Portal                                  -->
+  <!-- ========================================================================= -->
+  <main id="view-victim" class="role-view" style="display: none;">
+    <div class="victim-portal">
+
+      <!-- Left Column: Report Fraud -->
+      <div class="victim-col victim-col-report">
+        <div class="vp-card vp-card-report">
+          <div class="vp-card-header">
+            <div class="vp-card-icon">🛡️</div>
+            <div>
+              <h2 class="vp-card-title">Report Cyber Fraud</h2>
+              <p class="vp-card-sub">File your complaint to immediately trigger AI-powered investigation &amp; fund freeze coordination</p>
+            </div>
+          </div>
+          <div class="vp-card-body">
+            <!-- Scam Type -->
+            <div class="vp-field">
+              <label class="vp-label">What type of fraud happened?</label>
+              <div class="vp-scam-grid">
+                <div class="vp-scam-chip active" data-scam="DIGITAL_ARREST"><span>🛡️</span> Fake Police / CBI Call</div>
+                <div class="vp-scam-chip" data-scam="INVESTMENT_STOCK_SCAM"><span>📈</span> Stock / Investment</div>
+                <div class="vp-scam-chip" data-scam="ELECTRICITY_KYC_APK_FRAUD"><span>⚡</span> Power Bill / KYC APK</div>
+                <div class="vp-scam-chip" data-scam="SEXTORTION_VIDEO_BLACKMAIL"><span>📹</span> Video Blackmail</div>
+                <div class="vp-scam-chip" data-scam="LOAN_APP_EXTORTION"><span>💳</span> Loan App Extortion</div>
+                <div class="vp-scam-chip" data-scam="UPI_QR_OLX_FRAUD"><span>📱</span> UPI / Marketplace</div>
+              </div>
+            </div>
+            <!-- Amount -->
+            <div class="vp-field">
+              <label class="vp-label">Amount Lost (INR)</label>
+              <div style="position: relative;">
+                <span style="position: absolute; left: 12px; top: 11px; color: var(--cyan); font-weight: 700; font-size: 16px;">₹</span>
+                <input type="number" id="victim-amount" class="custom-input vp-input" value="350000" min="100" style="padding-left: 30px; font-size: 16px; font-weight: 700;">
+              </div>
+            </div>
+            <!-- Location -->
+            <div class="vp-field-row">
+              <div class="vp-field" style="flex:1">
+                <label class="vp-label">Your State</label>
+                <select id="victim-state" class="custom-select vp-input">
+                  <option value="Maharashtra" selected>Maharashtra</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Delhi">Delhi NCR</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Assam">Assam</option>
+                </select>
+              </div>
+              <div class="vp-field" style="flex:1">
+                <label class="vp-label">City / District</label>
+                <input type="text" id="victim-district" class="custom-input vp-input" value="Mumbai" placeholder="e.g. Mumbai, Pune">
+              </div>
+            </div>
+            <!-- UTR -->
+            <div class="vp-field">
+              <label class="vp-label">Transaction Reference (UTR / UPI Ref)</label>
+              <input type="text" id="victim-utr" class="custom-input vp-input" placeholder="e.g. 428938102914">
+            </div>
+            <!-- When -->
+            <div class="vp-field">
+              <label class="vp-label">When did this happen?</label>
+              <div class="vp-time-row">
+                <div class="vp-time-chip active" data-mins="15"><span style="color: var(--coral);">🚨</span> Just Now</div>
+                <div class="vp-time-chip" data-mins="60"><span style="color: var(--cyan);">⚡</span> 1-2 Hours</div>
+                <div class="vp-time-chip" data-mins="180"><span style="color: var(--amber);">🕒</span> Today</div>
+                <div class="vp-time-chip" data-mins="360"><span style="color: var(--text-muted);">📅</span> Earlier</div>
+              </div>
+            </div>
+            <!-- Validation Result (shown after submission) -->
+            <div id="victim-validation-result" style="display:none;"></div>
+            <!-- Submit -->
+            <button id="victim-submit-btn" class="btn-primary-action vp-submit-btn">
+              <span>🚀</span> Submit Complaint &amp; Initiate Investigation
+            </button>
+            <div style="font-size: 10.5px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+              <span>🔒</span>
+              <span>Your information is protected and encrypted. Golden Hour fund freezing alerts will be triggered immediately.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Personal Complaint Dashboard + Timeline -->
+      <div class="victim-col victim-col-dashboard">
+        <!-- Personal Complaints Dashboard -->
+        <div class="vp-card">
+          <div class="vp-card-header">
+            <div class="vp-card-icon">📋</div>
+            <div>
+              <h2 class="vp-card-title">My Complaint Dashboard</h2>
+              <p class="vp-card-sub">Track all your filed complaints and their current status</p>
+            </div>
+          </div>
+          <div class="vp-card-body">
+            <div id="victim-complaints-list" class="vp-complaints-list">
+              <!-- Dynamically populated -->
+              <div class="vp-empty-state">
+                <span style="font-size: 32px;">📭</span>
+                <p>No complaints filed yet. Use the form on the left to report a fraud.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Tracker -->
+        <div class="vp-card">
+          <div class="vp-card-header">
+            <div class="vp-card-icon">⏱️</div>
+            <div>
+              <h2 class="vp-card-title">Complaint Timeline Tracker</h2>
+              <p class="vp-card-sub">Step-by-step lifecycle of your selected complaint</p>
+            </div>
+          </div>
+          <div class="vp-card-body">
+            <div id="victim-timeline" class="vp-timeline">
+              <div class="vp-empty-state">
+                <span style="font-size: 32px;">🕐</span>
+                <p>Select a complaint above to view its investigation timeline.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!--  VIEW 3: ADMIN — System Operations Console                               -->
+  <!-- ========================================================================= -->
+  <main id="view-admin" class="role-view" style="display: none;">
+    <div class="admin-console">
+
+      <!-- Row 1: Model Performance Metrics -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-icon">📊</div>
+          <div>
+            <h2 class="admin-section-title">Model Performance Metrics</h2>
+            <p class="admin-section-sub">ML model accuracy, precision, recall &amp; operational health</p>
+          </div>
+          <div class="admin-section-badge">Live Monitoring</div>
+        </div>
+
+        <!-- Gauge Cards -->
+        <div class="admin-metrics-grid">
+          <div class="admin-metric-card" id="metric-precision">
+            <div class="admin-gauge-wrap">
+              <svg class="admin-gauge" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" class="gauge-bg"/>
+                <circle cx="60" cy="60" r="50" class="gauge-fill gauge-cyan" stroke-dasharray="314" stroke-dashoffset="56"/>
+                <text x="60" y="56" class="gauge-value">82.1%</text>
+                <text x="60" y="72" class="gauge-label">Precision</text>
+              </svg>
+            </div>
+            <div class="admin-metric-sub">Corridor prediction accuracy</div>
+          </div>
+          <div class="admin-metric-card" id="metric-recall">
+            <div class="admin-gauge-wrap">
+              <svg class="admin-gauge" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" class="gauge-bg"/>
+                <circle cx="60" cy="60" r="50" class="gauge-fill gauge-emerald" stroke-dasharray="314" stroke-dashoffset="72"/>
+                <text x="60" y="56" class="gauge-value">77.1%</text>
+                <text x="60" y="72" class="gauge-label">Recall</text>
+              </svg>
+            </div>
+            <div class="admin-metric-sub">True positive detection rate</div>
+          </div>
+          <div class="admin-metric-card" id="metric-f1">
+            <div class="admin-gauge-wrap">
+              <svg class="admin-gauge" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" class="gauge-bg"/>
+                <circle cx="60" cy="60" r="50" class="gauge-fill gauge-amber" stroke-dasharray="314" stroke-dashoffset="63"/>
+                <text x="60" y="56" class="gauge-value">79.5%</text>
+                <text x="60" y="72" class="gauge-label">F1 Score</text>
+              </svg>
+            </div>
+            <div class="admin-metric-sub">Harmonic mean of P &amp; R</div>
+          </div>
+          <div class="admin-metric-card" id="metric-auc">
+            <div class="admin-gauge-wrap">
+              <svg class="admin-gauge" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" class="gauge-bg"/>
+                <circle cx="60" cy="60" r="50" class="gauge-fill gauge-violet" stroke-dasharray="314" stroke-dashoffset="40"/>
+                <text x="60" y="56" class="gauge-value">87.3%</text>
+                <text x="60" y="72" class="gauge-label">AUC-ROC</text>
+              </svg>
+            </div>
+            <div class="admin-metric-sub">Model discrimination ability</div>
+          </div>
+          <div class="admin-metric-card" id="metric-latency">
+            <div class="admin-gauge-wrap">
+              <svg class="admin-gauge" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" class="gauge-bg"/>
+                <circle cx="60" cy="60" r="50" class="gauge-fill gauge-cyan" stroke-dasharray="314" stroke-dashoffset="28"/>
+                <text x="60" y="56" class="gauge-value">142ms</text>
+                <text x="60" y="72" class="gauge-label">Avg Latency</text>
+              </svg>
+            </div>
+            <div class="admin-metric-sub">Prediction inference time</div>
+          </div>
+        </div>
+
+        <!-- Confusion Matrix -->
+        <div class="admin-subgrid">
+          <div class="admin-mini-card">
+            <h3 class="admin-mini-title">Confusion Matrix (Last 500 Predictions)</h3>
+            <table class="admin-confusion-matrix">
+              <thead>
+                <tr><th></th><th>Predicted +</th><th>Predicted −</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="cm-label">Actual +</td><td class="cm-tp">387</td><td class="cm-fn">28</td></tr>
+                <tr><td class="cm-label">Actual −</td><td class="cm-fp">42</td><td class="cm-tn">43</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="admin-mini-card">
+            <h3 class="admin-mini-title">Model Version & Config</h3>
+            <div class="admin-config-list">
+              <div class="admin-config-row"><span>Model Version</span><span class="admin-config-val">v2.4.1-hotspot-rf</span></div>
+              <div class="admin-config-row"><span>Algorithm</span><span class="admin-config-val">Ensemble (RF + XGB + LGBM)</span></div>
+              <div class="admin-config-row"><span>Training Set</span><span class="admin-config-val">48,291 cases</span></div>
+              <div class="admin-config-row"><span>Last Retrained</span><span class="admin-config-val">2026-09-08 18:30 IST</span></div>
+              <div class="admin-config-row"><span>Feature Count</span><span class="admin-config-val">23 engineered features</span></div>
+              <div class="admin-config-row"><span>Corridors Tracked</span><span class="admin-config-val">12 pan-India corridors</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Data Ingestion Monitor -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-icon">📡</div>
+          <div>
+            <h2 class="admin-section-title">Data Ingestion Monitor</h2>
+            <p class="admin-section-sub">Real-time pipeline events, NCRP feed sync &amp; model retraining</p>
+          </div>
+          <div class="admin-section-badge badge-green">Pipeline Active</div>
+        </div>
+
+        <!-- Summary Row -->
+        <div class="admin-ingest-summary">
+          <div class="admin-ingest-stat">
+            <span class="admin-ingest-num" id="admin-total-ingested">0</span>
+            <span class="admin-ingest-label">Total Ingested</span>
+          </div>
+          <div class="admin-ingest-stat">
+            <span class="admin-ingest-num" style="color: var(--emerald);" id="admin-processed">0</span>
+            <span class="admin-ingest-label">Processed Successfully</span>
+          </div>
+          <div class="admin-ingest-stat">
+            <span class="admin-ingest-num" style="color: var(--coral);" id="admin-failed">0</span>
+            <span class="admin-ingest-label">Failed / Rejected</span>
+          </div>
+          <div class="admin-ingest-stat">
+            <span class="admin-ingest-num" style="color: var(--amber);" id="admin-pending">0</span>
+            <span class="admin-ingest-label">Pending Review</span>
+          </div>
+        </div>
+
+        <!-- Ingestion Event Log Table -->
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="admin-ingestion-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Event Type</th>
+                <th>Source</th>
+                <th>Records</th>
+                <th>Status</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="admin-ingestion-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Row 3: User Management -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="admin-section-icon">👥</div>
+          <div>
+            <h2 class="admin-section-title">User Management</h2>
+            <p class="admin-section-sub">System users, roles, access control &amp; activity status</p>
+          </div>
+          <button class="btn-primary-action" style="padding: 6px 14px; font-size: 12px;" id="admin-add-user-btn">
+            <span>➕</span> Add User
+          </button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="admin-users-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Jurisdiction</th>
+                <th>Last Active</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- NCRP Incident Intake & Live Money Trail Tracking Modal -->
+  <div id="modal-intake-backdrop" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog" style="width: 760px;">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+            <span>🛡️</span> Report Cyber Fraud &amp; Track Money Trail Live
+          </div>
+          <div class="modal-subtitle">
+            Easy citizen intake: enter your fraud details below to immediately trigger AI money flow tracing across India, cash-out prediction &amp; freeze coordination.
+          </div>
+        </div>
+        <button id="btn-modal-close" class="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Dual Mode Switcher -->
+        <div class="mode-toggle-bar">
+          <button type="button" id="btn-mode-victim" class="mode-toggle-btn active">
+            <span>👤</span> Simple Citizen / Victim Report
+          </button>
+          <button type="button" id="btn-mode-officer" class="mode-toggle-btn">
+            <span>⚙️</span> Officer / Advanced Triage Mode
+          </button>
+        </div>
+
+        <!-- Quick Scenario Presets Bar -->
+        <div style="background: rgba(0, 229, 255, 0.04); border: 1px solid rgba(0, 229, 255, 0.15); border-radius: 6px; padding: 7px 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-size: 10.5px; color: var(--cyan); font-weight: 600;">⚡ 1-Click Demo Scenarios:</span>
+            <span style="font-size: 9.5px; color: var(--text-muted);">Quick-fill common fraud cases</span>
+          </div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button type="button" class="btn-preset" data-preset="cbi_digital_arrest" style="font-size: 10px; padding: 3px 8px;">
+              🛡️ Digital Arrest (₹12.5L / Mumbai → Mewat)
+            </button>
+            <button type="button" class="btn-preset" data-preset="jamtara_electricity" style="font-size: 10px; padding: 3px 8px;">
+              ⚡ Power Bill APK (₹95K / Kolkata → Jamtara)
+            </button>
+            <button type="button" class="btn-preset" data-preset="investment_stock" style="font-size: 10px; padding: 3px 8px;">
+              📈 Stock Trading (₹28L / BLR → Delhi NCR)
+            </button>
+            <button type="button" class="btn-preset" data-preset="loan_app" style="font-size: 10px; padding: 3px 8px;">
+              💳 Loan App Extortion (₹3.2L / Pune → Surat)
+            </button>
+          </div>
+        </div>
+
+        <!-- Hidden inputs synced with visual tiles for backend compatibility -->
+        <select id="modal-scam-category" style="display: none;">
+          <option value="DIGITAL_ARREST">Digital Arrest (Fake CBI/ED/Police)</option>
+          <option value="INVESTMENT_STOCK_SCAM">Investment / Stock Trading Fraud</option>
+          <option value="SEXTORTION_VIDEO_BLACKMAIL">Sextortion / Video Call Blackmail</option>
+          <option value="ELECTRICITY_KYC_APK_FRAUD">Electricity Bill / KYC APK Fraud</option>
+          <option value="LOAN_APP_EXTORTION">Instant Loan App Extortion</option>
+          <option value="UPI_QR_OLX_FRAUD">UPI QR / OLX Buyer Fraud</option>
+          <option value="SIM_SWAP_FRAUD">SIM Swap / Telco Identity Theft</option>
+        </select>
+        <select id="modal-target-corridor" style="display: none;">
+          <option value="AUTO" selected>AUTO</option>
+        </select>
+
+        <!-- STEP 1: Scam Typology Tiles -->
+        <div class="filter-group">
+          <label class="filter-label" style="font-size: 12px; font-weight: 700; color: var(--text-primary);">
+            1. What type of cyber fraud happened? *
+          </label>
+          <div class="scam-tile-grid">
+            <div class="scam-tile active" data-scam="DIGITAL_ARREST">
+              <span class="scam-tile-icon">🛡️</span>
+              <span class="scam-tile-title">Fake Police / CBI Call</span>
+              <span class="scam-tile-sub">Digital Arrest threat</span>
+            </div>
+            <div class="scam-tile" data-scam="INVESTMENT_STOCK_SCAM">
+              <span class="scam-tile-icon">📈</span>
+              <span class="scam-tile-title">Stock / Investment</span>
+              <span class="scam-tile-sub">Fake trading app / IPO</span>
+            </div>
+            <div class="scam-tile" data-scam="ELECTRICITY_KYC_APK_FRAUD">
+              <span class="scam-tile-icon">⚡</span>
+              <span class="scam-tile-title">Power Bill / KYC APK</span>
+              <span class="scam-tile-sub">Disconnection message</span>
+            </div>
+            <div class="scam-tile" data-scam="SEXTORTION_VIDEO_BLACKMAIL">
+              <span class="scam-tile-icon">📹</span>
+              <span class="scam-tile-title">Video Call Blackmail</span>
+              <span class="scam-tile-sub">Extortion / Sextortion</span>
+            </div>
+            <div class="scam-tile" data-scam="LOAN_APP_EXTORTION">
+              <span class="scam-tile-icon">💳</span>
+              <span class="scam-tile-title">Instant Loan App</span>
+              <span class="scam-tile-sub">High interest extortion</span>
+            </div>
+            <div class="scam-tile" data-scam="UPI_QR_OLX_FRAUD">
+              <span class="scam-tile-icon">📱</span>
+              <span class="scam-tile-title">UPI QR / Marketplace</span>
+              <span class="scam-tile-sub">OLX / Buyer fake QR</span>
+            </div>
+            <div class="scam-tile" data-scam="SIM_SWAP_FRAUD">
+              <span class="scam-tile-icon">📶</span>
+              <span class="scam-tile-title">SIM Swap / Other</span>
+              <span class="scam-tile-sub">OTP theft / Telco</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-grid">
+          <!-- Column 1: Financial & Identity Details -->
+          <div class="modal-col">
+            <div class="filter-group">
+              <label class="filter-label" style="font-size: 11.5px; font-weight: 700; color: var(--text-primary);">
+                2. How much money was lost (INR)? *
+              </label>
+              <div style="position: relative;">
+                <span style="position: absolute; left: 10px; top: 8px; color: var(--cyan); font-weight: 700; font-size: 14px;">₹</span>
+                <input type="number" id="modal-amount" class="custom-input" value="450000" min="100" step="5000" style="padding-left: 26px; font-weight: 700; font-size: 15px;">
+              </div>
+              <div style="display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap;">
+                <button type="button" class="btn-quick-amt" data-val="25000">₹25K</button>
+                <button type="button" class="btn-quick-amt" data-val="75000">₹75K</button>
+                <button type="button" class="btn-quick-amt" data-val="250000">₹2.5L</button>
+                <button type="button" class="btn-quick-amt active" data-val="450000">₹4.5L</button>
+                <button type="button" class="btn-quick-amt" data-val="1250000">₹12.5L</button>
+                <button type="button" class="btn-quick-amt" data-val="3500000">₹35L</button>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label">Transaction Reference (UTR / UPI Ref Number)</label>
+              <div style="display: flex; gap: 6px;">
+                <input type="text" id="modal-utr" class="custom-input" placeholder="e.g. 428938102914" value="428938102914">
+                <button type="button" id="btn-modal-random-utr" class="btn-secondary-action" style="padding: 4px 10px; font-size: 11px; white-space: nowrap;">🎲 Demo UTR</button>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label">Payment App / Mode Used</label>
+              <select id="modal-payment-mode" class="custom-select">
+                <option value="UPI_GPAY">Google Pay (UPI)</option>
+                <option value="UPI_PHONEPE" selected>PhonePe (UPI)</option>
+                <option value="UPI_PAYTM">Paytm (UPI)</option>
+                <option value="IMPS_NEFT">Net Banking (IMPS / NEFT)</option>
+                <option value="CREDIT_DEBIT_CARD">Debit / Credit Card</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Column 2: Geography & Timing -->
+          <div class="modal-col">
+            <div class="filter-group">
+              <label class="filter-label" style="font-size: 11.5px; font-weight: 700; color: var(--text-primary);">
+                3. Your Location (Victim Origin) *
+              </label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div>
+                  <span style="font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px;">State</span>
+                  <select id="modal-origin-state" class="custom-select">
+                    <optgroup label="Metro / High Cybercrime States">
+                      <option value="Maharashtra" selected>Maharashtra</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Delhi">Delhi NCR</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Haryana">Haryana</option>
+                    </optgroup>
+                    <optgroup label="Major States">
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Bihar">Bihar</option>
+                      <option value="Andhra Pradesh">Andhra Pradesh</option>
+                      <option value="Odisha">Odisha</option>
+                      <option value="Assam">Assam</option>
+                      <option value="Punjab">Punjab</option>
+                      <option value="Kerala">Kerala</option>
+                      <option value="Jharkhand">Jharkhand</option>
+                      <option value="Uttarakhand">Uttarakhand</option>
+                      <option value="Chhattisgarh">Chhattisgarh</option>
+                      <option value="Himachal Pradesh">Himachal Pradesh</option>
+                      <option value="Goa">Goa</option>
+                    </optgroup>
+                    <optgroup label="North-East States">
+                      <option value="Tripura">Tripura</option>
+                      <option value="Meghalaya">Meghalaya</option>
+                      <option value="Manipur">Manipur</option>
+                      <option value="Nagaland">Nagaland</option>
+                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                      <option value="Mizoram">Mizoram</option>
+                      <option value="Sikkim">Sikkim</option>
+                    </optgroup>
+                    <optgroup label="Union Territories">
+                      <option value="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+                      <option value="Ladakh">Ladakh</option>
+                      <option value="Chandigarh">Chandigarh</option>
+                      <option value="Puducherry">Puducherry</option>
+                      <option value="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+                      <option value="Dadra &amp; Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+                      <option value="Daman &amp; Diu">Daman &amp; Diu</option>
+                      <option value="Lakshadweep">Lakshadweep</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div>
+                  <span style="font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px;">City / District</span>
+                  <input type="text" id="modal-origin-district" class="custom-input" value="Mumbai Suburban" placeholder="e.g. Mumbai, Pune">
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label class="filter-label" style="font-size: 11.5px; font-weight: 700; color: var(--text-primary);">
+                4. When did this happen? (Reporting Window) *
+              </label>
+              <div class="time-pills-row">
+                <div class="time-pill-btn active" data-mins="15">
+                  <span style="font-weight: 700; color: var(--coral);">🚨 Just Now</span>
+                  <span style="font-size: 9px;">&lt; 30m Golden Hour</span>
+                </div>
+                <div class="time-pill-btn" data-mins="45">
+                  <span style="font-weight: 700; color: var(--cyan);">⚡ 1-2 Hours</span>
+                  <span style="font-size: 9px;">Priority Window</span>
+                </div>
+                <div class="time-pill-btn" data-mins="120">
+                  <span style="font-weight: 700; color: var(--amber);">🕒 Today</span>
+                  <span style="font-size: 9px;">Active Layering</span>
+                </div>
+                <div class="time-pill-btn" data-mins="240">
+                  <span style="font-weight: 700; color: var(--text-muted);">📅 Earlier</span>
+                  <span style="font-size: 9px;">Forensic Triage</span>
+                </div>
+              </div>
+              <input type="range" id="modal-delay-slider" min="5" max="180" value="25" step="5" style="display: none;">
+              <span id="modal-delay-display" style="display: none;">25 mins</span>
+            </div>
+
+            <!-- Suspect / Destination Area Selection (Dynamic Pan-India) -->
+            <div class="filter-group" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 10px;">
+              <label class="filter-label" style="font-size: 11px; font-weight: 700; color: var(--cyan);">
+                5. Money Flow Destination Tracking
+              </label>
+              <div style="display: flex; gap: 12px; margin-bottom: 8px;">
+                <label style="font-size: 11px; display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                  <input type="radio" name="dest_choice" id="dest-choice-auto" value="AUTO" checked style="accent-color: var(--cyan);">
+                  <span>🤖 Auto-Trace via AI (Recommended)</span>
+                </label>
+                <label style="font-size: 11px; display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                  <input type="radio" name="dest_choice" id="dest-choice-custom" value="CUSTOM" style="accent-color: var(--cyan);">
+                  <span>🎯 I know Target State/City</span>
+                </label>
+              </div>
+
+              <!-- Custom Target Destination Fields (hidden if auto-trace) -->
+              <div id="custom-dest-fields" style="display: none; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div>
+                  <span style="font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px;">Suspect State</span>
+                  <select id="modal-dest-state" class="custom-select">
+                    <option value="Haryana">Haryana</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Delhi">Delhi NCR</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu &amp; Kashmir">Jammu &amp; Kashmir</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                  </select>
+                </div>
+                <div>
+                  <span style="font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px;">Suspect District / City</span>
+                  <input type="text" id="modal-dest-district" class="custom-input" value="Nuh" placeholder="e.g. Nuh, Jamtara, Surat">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OFFICER / ADVANCED SECTION (Collapsed by default, shown in officer mode) -->
+        <div id="officer-advanced-section" style="display: none; background: rgba(0, 229, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--cyan); margin-bottom: 8px;">
+            ⚙️ Tactical Officer Parameters &amp; Modality Weights
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div class="filter-group">
+              <label class="filter-label">Mule Chain Hops</label>
+              <select id="modal-num-hops" class="custom-select">
+                <option value="">🤖 Auto (Weighted Random)</option>
+                <option value="1">1 Hop — Direct Cash-Out</option>
+                <option value="2">2 Hops — Single Layering</option>
+                <option value="3">3 Hops — Double Layering</option>
+                <option value="4">4 Hops — Triple Layering</option>
+                <option value="5">5 Hops — Deep Laundering</option>
+                <option value="6">6 Hops — Extreme Syndicate</option>
+              </select>
+              <span id="hops-display" style="font-size: 9.5px; color: var(--cyan); margin-top: 2px; display: block;">Auto</span>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">Touchpoint Modality Weight</label>
+              <select id="modal-touchpoint-pref" class="custom-select">
+                <option value="ALL">All Touchpoints (Balanced)</option>
+                <option value="BANK_ATM">Scheduled Bank ATMs</option>
+                <option value="WHITE_LABEL_ATM">White-Label ATMs (WLA)</option>
+                <option value="CSP_BANK_MITRA">CSP / Bank Mitras</option>
+                <option value="MICRO_ATM_MERCHANT">Merchant Micro-ATMs</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label class="filter-label">Suspect Beneficiary / Bank Hint</label>
+              <input type="text" id="modal-suspect-bank" class="custom-input" placeholder="e.g. State Bank of India / PYTM">
+            </div>
+          </div>
+        </div>
+
+        <!-- Reassurance Note -->
+        <div style="font-size: 10.5px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; padding: 4px 2px;">
+          <span>🔒</span>
+          <span>Your information is protected and encrypted. Reporting immediately initiates Golden Hour fund freezing alerts under I4C Samanvay.</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-modal-cancel" class="btn-secondary-action">Cancel</button>
+        <button id="btn-modal-submit" class="btn-primary-action" style="padding: 10px 24px; font-weight: 700; font-size: 13px; box-shadow: 0 0 18px var(--cyan-glow);">
+          <span>🚀</span> Submit Incident &amp; Track Money Trail Live on Map
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Leaflet GIS Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Custom Modules -->
+  <script src="/static/js/map.js"></script>
+  <script src="/static/js/graph.js"></script>
+  <script src="/static/js/tour.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
