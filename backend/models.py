@@ -3,6 +3,7 @@ Pydantic Data Models for Incident Ingestion, AI Decision Support,
 Requisitions, Alerts, Audit Logging, and Complaint Workflow Tracking.
 """
 
+from enum import Enum
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
@@ -69,8 +70,8 @@ class ReviewDecisionRequest(BaseModel):
         description="Required when decision=REJECT. Stored in tamper-evident audit trail."
     )
 
-class WorkflowStage:
-    """Enumeration of complaint lifecycle stages (used as string constants)."""
+class WorkflowStage(str, Enum):
+    """Enumeration of complaint lifecycle stages."""
     VALIDATING           = "VALIDATING"
     VALIDATION_FAILED    = "VALIDATION_FAILED"
     PENDING_REVIEW       = "PENDING_REVIEW"

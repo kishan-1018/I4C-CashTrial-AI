@@ -15,7 +15,7 @@ from typing import List, Dict, Any, Tuple
 
 # Seed for reproducible train/val/test splits
 RANDOM_SEED = 42
-random.seed(RANDOM_SEED)
+# Note: random.seed(RANDOM_SEED) is applied inside generate_all_datasets() only
 
 DATA_DIR = Path(__file__).resolve().parent
 
@@ -650,6 +650,7 @@ def generate_single_complaint(
 
 def generate_all_datasets():
     """Generates the full suite of datasets: Touchpoints, Train, Val, Test, and Demo."""
+    random.seed(RANDOM_SEED)
     print("Generating grounded Cash-Out Touchpoints Registry...")
     touchpoints = generate_touchpoints_registry()
     

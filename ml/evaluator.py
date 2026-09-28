@@ -18,14 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 MODELS_DIR = BASE_DIR / "models"
 
-CORRIDORS = [
-    "mewat_nuh_rural",
-    "jamtara_cyber_hub",
-    "delhi_rohini_urban",
-    "bengaluru_east_tech",
-    "alwar_border_zone",
-    "surat_trade_hub"
-]
+from data.generator import CORRIDORS as _CORRIDOR_REGISTRY
+CORRIDORS = list(_CORRIDOR_REGISTRY.keys())
 
 SCAM_CATEGORIES = [
     "DIGITAL_ARREST", 

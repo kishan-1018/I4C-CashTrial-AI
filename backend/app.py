@@ -4,15 +4,15 @@ Implements complete REST API, authenticated WebSocket live stream,
 audit trail logging, and requisition/PDF dossier endpoints.
 """
 
-import os
 import json
 import datetime
 import asyncio
 import copy
+import random
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Depends, Query, Response
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Depends, Query, Response, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -23,7 +23,15 @@ from ml.predictor import HotspotPredictor
 from ml.graph_analyzer import TransactionGraphAnalyzer
 from backend.models import IncidentIntakeRequest, HumanReviewAction, AlertNotificationRequest, ReviewDecisionRequest, WorkflowStage
 from backend.validator import validate_complaint, MAX_RETRIES
-from backend.auth import get_current_user_role, require_role
+from backend.auth import (
+    get_current_user_role, 
+    require_role, 
+    authenticate_user, 
+    create_session_token, 
+    ACTIVE_TOKENS, 
+    LoginRequest, 
+    USERS_DB
+)
 from backend.audit import audit_ledger
 from backend.requisition_generator import RequisitionGenerator
 from backend.pdf_generator import ForensicPDFGenerator
@@ -44,10 +52,20 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# No-Cache Middleware for frontend templates & static assets
+@app.middleware("http")
+async def add_no_cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
 
 # Mount Static Files & Templates
 STATIC_DIR.mkdir(parents=True, exist_ok=True)
@@ -114,6 +132,78 @@ ws_manager = ConnectionManager()
 @app.get("/", response_class=HTMLResponse)
 async def serve_dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
+
+# --- 1b. Authentication Endpoints for Investigator & Admin ---
+@app.post("/api/auth/login")
+async def login_endpoint(payload: LoginRequest):
+    """
+    Authenticates Investigator or System Admin with credentials.
+    Returns session token and verified user profile.
+    """
+    user = authenticate_user(payload.username, payload.password, payload.requested_role)
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials. Please verify your official ID / username and password."
+        )
+    token = create_session_token(user)
+    return {
+        "success": True,
+        "token": token,
+        "user": {
+            "username": user["username"],
+            "role": user["role"],
+            "display_name": user["display_name"],
+            "badge_id": user["badge_id"],
+            "jurisdiction": user["jurisdiction"]
+        }
+    }
+
+@app.get("/api/auth/me")
+async def get_current_user_profile(
+    authorization: Optional[str] = Header(default=None),
+    x_auth_token: Optional[str] = Header(default=None)
+):
+    """Returns profile of currently authenticated user, or public citizen."""
+    token = None
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+    elif x_auth_token:
+        token = x_auth_token.strip()
+
+    if token and token in ACTIVE_TOKENS:
+        u = ACTIVE_TOKENS[token]
+        return {
+            "authenticated": True,
+            "user": {
+                "username": u["username"],
+                "role": u["role"],
+                "display_name": u["display_name"],
+                "badge_id": u["badge_id"],
+                "jurisdiction": u["jurisdiction"]
+            }
+        }
+    return {
+        "authenticated": False,
+        "role": "VICTIM",
+        "display_name": "Citizen / Public Complainant"
+    }
+
+@app.post("/api/auth/logout")
+async def logout_endpoint(
+    authorization: Optional[str] = Header(default=None),
+    x_auth_token: Optional[str] = Header(default=None)
+):
+    """Invalidates active session token."""
+    token = None
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+    elif x_auth_token:
+        token = x_auth_token.strip()
+
+    if token and token in ACTIVE_TOKENS:
+        del ACTIVE_TOKENS[token]
+    return {"success": True, "message": "Logged out successfully"}
 
 # --- 2. Touchpoint & Incident Endpoints ---
 @app.get("/api/touchpoints")
@@ -451,7 +541,6 @@ async def simulate_incident(req: IncidentIntakeRequest):
 @app.get("/api/stream/next-incident")
 async def stream_next_incident():
     """Generates a dynamic pan-India cybercrime incident on the fly and broadcasts it."""
-    import random
     cid = f"NCRP-2026-LIVE{random.randint(1000, 9999)}"
     states_cities = [
         ("Maharashtra", "Mumbai"), ("Karnataka", "Bengaluru"), ("Delhi", "New Delhi"),
@@ -504,7 +593,6 @@ async def stream_next_incident():
 @app.post("/api/batch-generate")
 async def batch_generate_incidents(count: int = 10):
     """Dynamically generates N pan-India incidents and ingests them into the live store."""
-    import random
     created = []
     for _ in range(min(count, 20)):
         cid = f"NCRP-2026-LIVE{random.randint(1000, 9999)}"
@@ -958,7 +1046,7 @@ async def get_alert_logs():
 
 @app.post("/api/webhooks/alert")
 async def webhook_receiver(payload: Dict[str, Any]):
-    return {"status": "WEBHOOK_PAYLOAD_RECEIVED", "received_at": datetime.datetime.now().isoformat()}
+    return {"status": "WEBHOOK_PAYLOAD_RECEIVED", "received_at": datetime.datetime.now(datetime.timezone.utc).isoformat()}
 
 # --- 9. Forensic PDF Dossier Download ---
 @app.get("/api/dossier/{complaint_id}")
@@ -984,6 +1072,40 @@ async def get_audit_trail(complaint_id: str):
         "events": audit_ledger.get_events_for_complaint(complaint_id)
     }
 
+@app.get("/api/audit-ledger")
+async def get_full_audit_ledger(limit: int = 50):
+    """Returns the tamper-evident SHA-256 event ledger and cryptographic chain verification."""
+    events = audit_ledger.ledger[-limit:] if hasattr(audit_ledger, 'ledger') else []
+    is_valid = audit_ledger.verify_integrity() if hasattr(audit_ledger, 'verify_integrity') else True
+    return {
+        "total_records": len(audit_ledger.ledger) if hasattr(audit_ledger, 'ledger') else 0,
+        "chain_integrity": "CRYPTOGRAPHICALLY_VERIFIED" if is_valid else "TAMPER_DETECTED",
+        "hash_algorithm": "SHA-256",
+        "events": list(reversed(events))
+    }
+
+@app.get("/api/admin/corridors")
+async def get_admin_corridors():
+    """Returns operational status for all 12 pan-India cybercrime corridors."""
+    from data.generator import CORRIDORS
+    tps = predictor.touchpoints_registry
+    results = []
+    for cid, cdata in CORRIDORS.items():
+        corridor_tps = [t for t in tps if t.get("corridor_id") == cid]
+        active_count = sum(1 for inc in ACTIVE_INCIDENTS.values() if inc.get("ground_truth", {}).get("corridor_id") == cid)
+        results.append({
+            "corridor_id": cid,
+            "name": cdata["name"],
+            "state": cdata["state"],
+            "center": cdata["center"],
+            "radius_km": cdata["radius_km"],
+            "touchpoint_count": len(corridor_tps),
+            "active_incidents": active_count,
+            "risk_level": "CRITICAL" if active_count >= 3 else "ELEVATED" if active_count >= 1 else "MONITORED",
+            "status": "ACTIVE_MONITORING"
+        })
+    return {"total": len(results), "corridors": results}
+
 # --- 10. WebSocket Live Feed ---
 @app.websocket("/ws/live-stream")
 async def websocket_live_stream(websocket: WebSocket):
@@ -994,7 +1116,7 @@ async def websocket_live_stream(websocket: WebSocket):
             "type": "CONNECTION_ESTABLISHED",
             "status": "LIVE",
             "message": "Connected to I4C Cybercrime Predictive Decision Support Live Stream",
-            "timestamp": datetime.datetime.now().isoformat()
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
         })
         while True:
             # Heartbeat / receive incoming commands from client

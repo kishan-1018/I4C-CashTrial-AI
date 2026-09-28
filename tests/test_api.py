@@ -88,7 +88,7 @@ def test_api_geo_states_and_districts():
 
 def test_dynamic_pan_india_simulation_with_custom_destination():
     payload = {
-        "scam_category": "TASK_INVESTMENT_FRAUD",
+        "scam_category": "INVESTMENT_STOCK_SCAM",
         "disputed_amount_inr": 450000.0,
         "origin_state": "Kerala",
         "origin_district": "Ernakulam",
@@ -127,4 +127,108 @@ def test_dynamic_pan_india_simulation_with_custom_destination():
         assert tp["state"] == "Bihar"
         assert len(tp["coordinates"]) == 2
 
+def test_root_serves_victim_page_by_default():
+    response = client.get("/")
+    assert response.status_code == 200
+    # Victim view must be active
+    assert 'id="view-victim" class="role-view active-view"' in response.text
+    # Investigator view must be hidden by default
+    assert 'id="view-investigator" class="main-layout role-view" style="display: none;"' in response.text
+    # Auth login trigger button must be present
+    assert 'id="btn-auth-login-trigger"' in response.text
+    assert 'id="modal-auth-backdrop"' in response.text
 
+def test_auth_login_investigator_success():
+    payload = {
+        "username": "investigator",
+        "password": "investigator123",
+        "requested_role": "INVESTIGATOR"
+    }
+    response = client.post("/api/auth/login", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert "token" in data
+    assert data["user"]["role"] == "INVESTIGATOR"
+    assert data["user"]["username"] == "investigator"
+    assert "Rajesh Sharma" in data["user"]["display_name"]
+
+def test_auth_login_admin_success():
+    payload = {
+        "username": "admin",
+        "password": "admin123",
+        "requested_role": "ADMIN"
+    }
+    response = client.post("/api/auth/login", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert "token" in data
+    assert data["user"]["role"] == "ADMIN"
+    assert data["user"]["username"] == "admin"
+
+def test_auth_login_invalid_password():
+    payload = {
+        "username": "investigator",
+        "password": "wrong_password_123"
+    }
+    response = client.post("/api/auth/login", json=payload)
+    assert response.status_code == 401
+    assert "Invalid credentials" in response.json()["detail"]
+
+def test_auth_login_invalid_user():
+    payload = {
+        "username": "unknown_hacker",
+        "password": "anypassword"
+    }
+    response = client.post("/api/auth/login", json=payload)
+    assert response.status_code == 401
+    assert "Invalid credentials" in response.json()["detail"]
+
+def test_auth_profile_and_logout():
+    # Login as investigator
+    login_res = client.post("/api/auth/login", json={
+        "username": "investigator",
+        "password": "investigator123"
+    }).json()
+    token = login_res["token"]
+
+    # Verify /api/auth/me with Bearer token
+    me_res = client.get("/api/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert me_res.status_code == 200
+    me_data = me_res.json()
+    assert me_data["authenticated"] is True
+    assert me_data["user"]["role"] == "INVESTIGATOR"
+
+    # Logout
+    logout_res = client.post("/api/auth/logout", headers={"Authorization": f"Bearer {token}"})
+    assert logout_res.status_code == 200
+    assert logout_res.json()["success"] is True
+
+    # Subsequent check shows unauthenticated
+    after_res = client.get("/api/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert after_res.status_code == 200
+    assert after_res.json()["authenticated"] is False
+    assert after_res.json()["role"] == "VICTIM"
+
+def test_api_admin_corridors():
+    response = client.get("/api/admin/corridors")
+    assert response.status_code == 200
+    data = response.json()
+    assert "corridors" in data
+    assert data["total"] == len(data["corridors"])
+    assert data["total"] > 0
+    # Verify corridor structure
+    first = data["corridors"][0]
+    assert "corridor_id" in first
+    assert "name" in first
+    assert "risk_level" in first
+
+def test_api_audit_ledger():
+    response = client.get("/api/audit-ledger")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["chain_integrity"] == "CRYPTOGRAPHICALLY_VERIFIED"
+    assert data["total_records"] > 0
+    assert len(data["events"]) > 0
+    assert "payload_hash_sha256" in data["events"][0]

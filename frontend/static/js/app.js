@@ -11,25 +11,127 @@ class DashboardApp {
     this.currentAnalysis = null;
     this.incidents = [];
     this.socket = null;
-    this.currentRole = "INVESTIGATOR";
-    // Victim-specific state
-    this.victimComplaints = [];
-    this.selectedVictimComplaint = null;
+    
+    // Website opens with Victim / Citizen page by default
+    this.currentRole = "VICTIM";
+
+    // Authentication State for Law Enforcement & System Admin:
+    // Every visit opens citizen portal by default and requires credentials for restricted consoles.
+    this.authToken = null;
+    this.authenticatedUser = null;
+    this.loginTargetRole = "INVESTIGATOR";
+
+    // Victim-specific state — seeded with default active citizen complaint
+    this.victimComplaints = [
+      {
+        complaint_id: "NCRP-2026-VIC001",
+        scam_category: "DIGITAL_ARREST",
+        disputed_amount_inr: 350000,
+        origin_state: "Maharashtra",
+        origin_district: "Mumbai",
+        reporting_delay_minutes: 15,
+        primary_utr: "428938102914",
+        filed_at: new Date(Date.now() - 10 * 60000).toISOString(),
+        status: 'INVESTIGATING',
+        workflow_stage: 'UNDER_REVIEW',
+        priority_score: 92,
+        validation: {
+          is_valid: true,
+          validation_score: 94,
+          flagged_anomalies: []
+        }
+      }
+    ];
+    this.selectedVictimComplaint = "NCRP-2026-VIC001";
     this._victimPollingTimers = {}; // complaint_id -> interval id
   }
 
   async init() {
     console.log("Initializing I4C Predictive Decision Support Dashboard...");
-    if (window.gisMap) window.gisMap.init();
-    if (window.muleGraph) window.muleGraph.init();
+    try {
+      if (window.gisMap) window.gisMap.init();
+    } catch (err) {
+      console.warn("GIS Map initialization deferred:", err);
+    }
+    try {
+      if (window.muleGraph) window.muleGraph.init();
+    } catch (err) {
+      console.warn("Mule Graph initialization deferred:", err);
+    }
 
+    // Fresh session enforcement: start as unauthenticated citizen on victim page.
+    // Credentials MUST be entered to access Investigator or System Admin consoles.
+    this.clearAuthState();
+
+    this.initAuth();
     this.bindEvents();
     this.bindVictimEvents();
     this.bindAdminEvents();
-    await this.loadIncidents();
-    await this.loadHeatmap();
+    this.bindAuthEvents();
+
+    // Opening website opens victim page by default — always start here
+    this.switchRole("VICTIM", true);
+
+    try {
+      await this.loadIncidents();
+    } catch (err) {
+      console.warn("Incident load deferred:", err);
+    }
+    try {
+      await this.loadHeatmap();
+    } catch (err) {
+      console.warn("Heatmap load deferred:", err);
+    }
     this.initWebSocket();
     this.loadAdminData();
+  }
+
+  /**
+   * Validates any stored auth token against the backend.
+   * If the token is expired, revoked, or the backend is unreachable,
+   * the local auth state is wiped so the user must re-login.
+   */
+  async validateStoredAuth() {
+    if (!this.authToken) {
+      // No token stored — nothing to validate
+      this.authenticatedUser = null;
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "GET",
+        headers: this.getAuthHeaders()
+      });
+
+      if (!res.ok) {
+        // Token is invalid/expired — clear everything
+        console.warn("Stored auth token is invalid or expired. Clearing session.");
+        this.clearAuthState();
+        return;
+      }
+
+      const data = await res.json();
+      // Token is valid — update authenticatedUser with fresh data
+      this.authenticatedUser = data.user || data;
+      sessionStorage.setItem('i4c_auth_user', JSON.stringify(this.authenticatedUser));
+      console.log(`Auth validated: ${this.authenticatedUser.display_name} (${this.authenticatedUser.role})`);
+
+    } catch (err) {
+      // Network error or backend not reachable — clear auth for safety
+      console.warn("Auth validation failed (network error). Clearing session.", err);
+      this.clearAuthState();
+    }
+  }
+
+  /**
+   * Wipes all local auth state, forcing re-authentication.
+   */
+  clearAuthState() {
+    this.authToken = null;
+    this.authenticatedUser = null;
+    sessionStorage.removeItem('i4c_auth_token');
+    sessionStorage.removeItem('i4c_auth_user');
   }
 
   // District suggestions keyed by state value — mirrors STATE_DEFAULT_DISTRICTS in generator.py
@@ -54,15 +156,39 @@ class DashboardApp {
   }
 
   /* =========================================================
-     ROLE-BASED VIEW SWITCHING
+     ROLE-BASED VIEW SWITCHING & ACCESS CONTROL
      ========================================================= */
-  switchRole(role) {
+  switchRole(role, bypassAuthCheck = false) {
+    // Enforce credentials for Investigator and System Admin
+    if (!bypassAuthCheck && (role === 'INVESTIGATOR' || role === 'ADMIN')) {
+      if (!this.isAuthenticatedForRole(role)) {
+        // Revert role select back to the current active role
+        const roleSelect = document.getElementById("user-role-select");
+        if (roleSelect) roleSelect.value = this.currentRole;
+
+        const roleName = role === 'ADMIN' ? 'System Administrator' : 'Investigator (Law Enforcement)';
+        this.openLoginModal(
+          role,
+          `Restricted Access: Please enter your ${roleName} credentials to access this console.`
+        );
+        return;
+      }
+    }
+
     this.currentRole = role;
+
+    // Sync select dropdown
+    const roleSelect = document.getElementById("user-role-select");
+    if (roleSelect && roleSelect.value !== role) {
+      roleSelect.value = role;
+    }
+
     // Hide all views
     document.querySelectorAll('.role-view').forEach(v => {
       v.style.display = 'none';
       v.classList.remove('active-view');
     });
+
     // Show the selected view
     const viewId = `view-${role.toLowerCase()}`;
     const viewEl = document.getElementById(viewId);
@@ -78,6 +204,10 @@ class DashboardApp {
     // Refresh data for the selected role
     if (role === 'VICTIM') {
       this.renderVictimComplaints();
+      if (this.selectedVictimComplaint) {
+        const c = this.victimComplaints.find(x => x.complaint_id === this.selectedVictimComplaint);
+        if (c) this.renderVictimTimeline(c);
+      }
     } else if (role === 'ADMIN') {
       this.loadAdminData();
     } else if (role === 'INVESTIGATOR') {
@@ -88,6 +218,302 @@ class DashboardApp {
         }
       }, 100);
     }
+  }
+
+  /* =========================================================
+     AUTHENTICATION & SESSION MANAGEMENT
+     ========================================================= */
+  initAuth() {
+    this.updateAuthNavUI();
+  }
+
+  isAuthenticatedForRole(role) {
+    if (!this.authToken || !this.authenticatedUser) return false;
+    const userRole = (this.authenticatedUser.role || '').toUpperCase();
+    if (role === 'INVESTIGATOR') {
+      return ['INVESTIGATOR', 'AUTHORIZED_OFFICER', 'ADMIN'].includes(userRole);
+    }
+    if (role === 'ADMIN') {
+      return userRole === 'ADMIN';
+    }
+    return true;
+  }
+
+  updateAuthNavUI() {
+    const loginTrigger = document.getElementById("btn-auth-login-trigger");
+    const userBadge = document.getElementById("auth-user-badge");
+    const badgeName = document.getElementById("auth-badge-name");
+    const badgeSub = document.getElementById("auth-badge-sub");
+    const badgeIcon = document.getElementById("auth-badge-icon");
+
+    if (this.authenticatedUser && this.authToken) {
+      if (loginTrigger) loginTrigger.style.display = "none";
+      if (userBadge) userBadge.style.display = "flex";
+      if (badgeName) badgeName.textContent = this.authenticatedUser.display_name || this.authenticatedUser.username;
+      if (badgeSub) badgeSub.textContent = `Badge #${this.authenticatedUser.badge_id || '26184'}`;
+      if (badgeIcon) badgeIcon.textContent = this.authenticatedUser.role === 'ADMIN' ? '⚙️' : '👮';
+    } else {
+      if (loginTrigger) loginTrigger.style.display = "inline-flex";
+      if (userBadge) userBadge.style.display = "none";
+    }
+  }
+
+  openLoginModal(targetRole = 'INVESTIGATOR', customMessage = null) {
+    this.loginTargetRole = targetRole;
+    const modal = document.getElementById("modal-auth-backdrop");
+    if (!modal) return;
+
+    // Set role tabs active state
+    const tabInv = document.getElementById("auth-tab-investigator");
+    const tabAdm = document.getElementById("auth-tab-admin");
+    if (targetRole === 'ADMIN') {
+      tabAdm?.classList.add('active');
+      tabInv?.classList.remove('active');
+    } else {
+      tabInv?.classList.add('active');
+      tabAdm?.classList.remove('active');
+    }
+
+    this.updateModalHints(targetRole);
+
+    const bannerText = document.getElementById("auth-banner-text");
+    if (bannerText && customMessage) {
+      bannerText.innerHTML = `<strong>Restricted Access:</strong> ${customMessage}`;
+    }
+
+    // Reset error banner
+    const errBanner = document.getElementById("auth-error-banner");
+    if (errBanner) errBanner.style.display = "none";
+
+    modal.classList.add("modal-open");
+    modal.style.setProperty("display", "flex", "important");
+    setTimeout(() => {
+      document.getElementById("auth-input-username")?.focus();
+    }, 50);
+  }
+
+  closeLoginModal() {
+    const modal = document.getElementById("modal-auth-backdrop");
+    if (modal) {
+      modal.classList.remove("modal-open");
+      modal.style.setProperty("display", "none", "important");
+    }
+    const roleSelect = document.getElementById("user-role-select");
+    if (roleSelect) roleSelect.value = this.currentRole;
+  }
+
+  updateModalHints(role) {
+    const userHint = document.getElementById("auth-username-hint");
+    const passHint = document.getElementById("auth-password-hint");
+    const userInput = document.getElementById("auth-input-username");
+    const bannerText = document.getElementById("auth-banner-text");
+
+    if (role === 'ADMIN') {
+      if (userHint) userHint.textContent = "e.g. admin";
+      if (passHint) passHint.textContent = "e.g. admin123";
+      if (userInput) userInput.placeholder = "Enter administrator username...";
+      if (bannerText) {
+        bannerText.innerHTML = `<strong>Restricted Access:</strong> System Admin console controls ML telemetry, model retuning thresholds, and tamper-evident audit ledger exports.`;
+      }
+    } else {
+      if (userHint) userHint.textContent = "e.g. investigator";
+      if (passHint) passHint.textContent = "e.g. investigator123";
+      if (userInput) userInput.placeholder = "Enter officer username...";
+      if (bannerText) {
+        bannerText.innerHTML = `<strong>Restricted Access:</strong> Law Enforcement Command Center contains classified mule account networks, predictive cash-out telemetry, and statutory Section 94 BNSS requisitions.`;
+      }
+    }
+  }
+
+  async handleAuthLogin() {
+    const userInput = document.getElementById("auth-input-username");
+    const passInput = document.getElementById("auth-input-password");
+    const errBanner = document.getElementById("auth-error-banner");
+    const errText = document.getElementById("auth-error-text");
+    const submitBtn = document.getElementById("btn-auth-submit");
+
+    const username = (userInput?.value || '').trim();
+    const password = (passInput?.value || '').trim();
+
+    if (!username || !password) {
+      if (errBanner && errText) {
+        errText.textContent = "Please enter both official username/ID and password.";
+        errBanner.style.display = "flex";
+      }
+      return;
+    }
+
+    const origBtnHtml = submitBtn ? submitBtn.innerHTML : "";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>⏳</span> Verifying Credentials...`;
+    }
+    if (errBanner) errBanner.style.display = "none";
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          requested_role: this.loginTargetRole
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.detail || "Authentication failed. Please verify credentials.");
+      }
+
+      // Successful login
+      this.authToken = data.token;
+      this.authenticatedUser = data.user;
+      sessionStorage.setItem('i4c_auth_token', data.token);
+      sessionStorage.setItem('i4c_auth_user', JSON.stringify(data.user));
+
+      this.updateAuthNavUI();
+      this.closeLoginModal();
+
+      // Switch to the target authenticated role
+      const targetRole = data.user.role === 'ADMIN' ? 'ADMIN' : 'INVESTIGATOR';
+      this.switchRole(targetRole, true);
+
+      this.showToast(
+        `✅ Authenticated: Welcome, ${data.user.display_name} (${data.user.role})`,
+        "emerald"
+      );
+
+      // Clear fields
+      if (userInput) userInput.value = "";
+      if (passInput) passInput.value = "";
+
+    } catch (err) {
+      if (errBanner && errText) {
+        errText.textContent = err.message || "Invalid official ID or password.";
+        errBanner.style.display = "flex";
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = origBtnHtml;
+      }
+    }
+  }
+
+  async handleAuthLogout() {
+    try {
+      if (this.authToken) {
+        await fetch("/api/auth/logout", {
+          method: "POST",
+          headers: this.getAuthHeaders()
+        });
+      }
+    } catch (_) {}
+
+    this.authToken = null;
+    this.authenticatedUser = null;
+    sessionStorage.removeItem('i4c_auth_token');
+    sessionStorage.removeItem('i4c_auth_user');
+
+    this.updateAuthNavUI();
+    this.switchRole("VICTIM", true);
+
+    const roleSelect = document.getElementById("user-role-select");
+    if (roleSelect) roleSelect.value = "VICTIM";
+
+    this.showToast("🚪 Logged out. Switched to Citizen Portal.", "cyan");
+  }
+
+  bindAuthEvents() {
+    // Nav login trigger button
+    const loginBtn = document.getElementById("btn-auth-login-trigger");
+    if (loginBtn) {
+      loginBtn.addEventListener("click", () => this.openLoginModal(this.loginTargetRole || 'INVESTIGATOR'));
+    }
+
+    // Nav logout button
+    const logoutBtn = document.getElementById("btn-auth-logout");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => this.handleAuthLogout());
+    }
+
+    // Modal close & cancel
+    document.getElementById("btn-auth-modal-close")?.addEventListener("click", () => this.closeLoginModal());
+    document.getElementById("btn-auth-modal-cancel")?.addEventListener("click", () => this.closeLoginModal());
+
+    const modalBackdrop = document.getElementById("modal-auth-backdrop");
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) this.closeLoginModal();
+      });
+    }
+
+    // Modal role tabs
+    const tabInv = document.getElementById("auth-tab-investigator");
+    const tabAdm = document.getElementById("auth-tab-admin");
+    if (tabInv && tabAdm) {
+      tabInv.addEventListener("click", () => {
+        tabInv.classList.add("active");
+        tabAdm.classList.remove("active");
+        this.loginTargetRole = "INVESTIGATOR";
+        this.updateModalHints("INVESTIGATOR");
+      });
+      tabAdm.addEventListener("click", () => {
+        tabAdm.classList.add("active");
+        tabInv.classList.remove("active");
+        this.loginTargetRole = "ADMIN";
+        this.updateModalHints("ADMIN");
+      });
+    }
+
+    // Quick demo autofill credentials
+    document.getElementById("btn-demo-investigator")?.addEventListener("click", () => {
+      tabInv?.click();
+      const u = document.getElementById("auth-input-username");
+      const p = document.getElementById("auth-input-password");
+      if (u) u.value = "investigator";
+      if (p) p.value = "investigator123";
+      document.getElementById("auth-error-banner")?.style.setProperty('display', 'none');
+    });
+
+    document.getElementById("btn-demo-admin")?.addEventListener("click", () => {
+      tabAdm?.click();
+      const u = document.getElementById("auth-input-username");
+      const p = document.getElementById("auth-input-password");
+      if (u) u.value = "admin";
+      if (p) p.value = "admin123";
+      document.getElementById("auth-error-banner")?.style.setProperty('display', 'none');
+    });
+
+    // Toggle password visibility
+    document.getElementById("btn-toggle-password")?.addEventListener("click", () => {
+      const pass = document.getElementById("auth-input-password");
+      if (pass) {
+        pass.type = pass.type === "password" ? "text" : "password";
+      }
+    });
+
+    // Submit button & enter key
+    document.getElementById("btn-auth-submit")?.addEventListener("click", () => this.handleAuthLogin());
+    document.getElementById("form-auth-login")?.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        this.handleAuthLogin();
+      }
+    });
+  }
+
+  getAuthHeaders() {
+    const headers = { "Content-Type": "application/json" };
+    if (this.authToken) {
+      headers["Authorization"] = `Bearer ${this.authToken}`;
+      headers["X-Auth-Token"] = this.authToken;
+    }
+    if (this.authenticatedUser) {
+      headers["X-Role"] = this.authenticatedUser.role;
+    }
+    return headers;
   }
 
   bindEvents() {
@@ -112,10 +538,17 @@ class DashboardApp {
       searchInput.addEventListener("input", () => this.applyFilters());
     }
 
-    // Guided Tour Trigger
+    // Guided Tour Trigger — checks investigator login
     document.getElementById("btn-run-tour").addEventListener("click", () => {
       if (this.currentRole !== 'INVESTIGATOR') {
-        this.switchRole('INVESTIGATOR');
+        if (!this.isAuthenticatedForRole('INVESTIGATOR')) {
+          this.openLoginModal(
+            'INVESTIGATOR',
+            'Officer authentication required to run tactical scam case simulation.'
+          );
+          return;
+        }
+        this.switchRole('INVESTIGATOR', true);
         document.getElementById("user-role-select").value = 'INVESTIGATOR';
       }
       if (window.caseTour) window.caseTour.startTour();
@@ -748,7 +1181,6 @@ class DashboardApp {
     });
   }
 
-
   /* =========================================================
      INVESTIGATOR VIEW — Existing Logic (preserved)
      ========================================================= */
@@ -1082,7 +1514,7 @@ class DashboardApp {
       // Use the new /api/review-complaint endpoint for proper workflow
       const res = await fetch("/api/review-complaint", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Role": this.currentRole },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           complaint_id: this.currentIncidentId,
           decision: "APPROVE",
@@ -1136,7 +1568,7 @@ class DashboardApp {
     try {
       const res = await fetch("/api/prepare-requisition", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Role": this.currentRole },
+        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           complaint_id: this.currentIncidentId,
           officer_id: "OFFICER_KA_8841"

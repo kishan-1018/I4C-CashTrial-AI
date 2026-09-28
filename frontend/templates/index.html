@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   
   <!-- Custom Tactical Dashboard Theme -->
-  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css?v=2.6.0">
 </head>
 <body>
 
@@ -45,18 +45,37 @@
       </div>
 
       <!-- Role Selector — drives which dashboard is shown -->
-      <select id="user-role-select" class="custom-select" style="width: 210px; font-weight: 600;">
-        <option value="INVESTIGATOR">👮 Investigator (Law Enforcement)</option>
-        <option value="VICTIM">👤 Victim / Citizen</option>
-        <option value="ADMIN">⚙️ System Admin</option>
+      <select id="user-role-select" class="custom-select" style="width: 230px; font-weight: 600;">
+        <option value="VICTIM" selected>👤 Victim / Citizen Portal</option>
+        <option value="INVESTIGATOR">👮 Investigator (Login Req.)</option>
+        <option value="ADMIN">⚙️ System Admin (Login Req.)</option>
       </select>
+
+      <!-- Officer / Admin Login Button (Visible when unauthenticated) -->
+      <button id="btn-auth-login-trigger" class="btn-secondary-action" style="padding: 6px 14px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(0, 229, 255, 0.4); box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);">
+        <span>🔐</span> Officer / Admin Login
+      </button>
+
+      <!-- Authenticated Officer Badge & Logout (Hidden when unauthenticated) -->
+      <div id="auth-user-badge" style="display: none; align-items: center; gap: 8px;">
+        <div style="background: rgba(0, 229, 255, 0.08); border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 6px; padding: 4px 10px; display: flex; align-items: center; gap: 7px;">
+          <span id="auth-badge-icon" style="font-size: 14px;">👮</span>
+          <div style="text-align: left;">
+            <div id="auth-badge-name" style="font-size: 11px; font-weight: 700; color: var(--cyan); line-height: 1.2;">Inspector Rajesh Sharma</div>
+            <div id="auth-badge-sub" style="font-size: 9.5px; color: var(--text-muted); line-height: 1;">Badge #I4C-INV-26184</div>
+          </div>
+        </div>
+        <button id="btn-auth-logout" class="btn-secondary-action" style="padding: 5px 10px; font-size: 11px; color: #ff6b81; border-color: rgba(255, 61, 113, 0.4); display: inline-flex; align-items: center; gap: 4px;">
+          <span>🚪</span> Logout
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- ========================================================================= -->
   <!--  VIEW 1: INVESTIGATOR — Tactical Command Center (existing layout)         -->
   <!-- ========================================================================= -->
-  <main id="view-investigator" class="main-layout role-view active-view">
+  <main id="view-investigator" class="main-layout role-view" style="display: none;">
     
     <!-- LEFT PANEL: Incident Queue & Spatial Filters -->
     <aside class="panel">
@@ -368,7 +387,7 @@
   <!-- ========================================================================= -->
   <!--  VIEW 2: VICTIM — Citizen Safety Portal                                  -->
   <!-- ========================================================================= -->
-  <main id="view-victim" class="role-view" style="display: none;">
+  <main id="view-victim" class="role-view active-view">
     <div class="victim-portal">
 
       <!-- Left Column: Report Fraud -->
@@ -596,7 +615,7 @@
             </table>
           </div>
           <div class="admin-mini-card">
-            <h3 class="admin-mini-title">Model Version & Config</h3>
+            <h3 class="admin-mini-title">Model Version &amp; Config</h3>
             <div class="admin-config-list">
               <div class="admin-config-row"><span>Model Version</span><span class="admin-config-val">v2.4.1-hotspot-rf</span></div>
               <div class="admin-config-row"><span>Algorithm</span><span class="admin-config-val">Ensemble (RF + XGB + LGBM)</span></div>
@@ -1040,16 +1059,127 @@
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!--  AUTHENTICATION MODAL — Law Enforcement & Admin Login                     -->
+  <!-- ========================================================================= -->
+  <div id="modal-auth-backdrop" class="modal-backdrop" style="display: none; align-items: center; justify-content: center; z-index: 99999;">
+    <div class="modal-dialog" style="max-width: 480px; width: 92%; border: 1px solid rgba(0, 229, 255, 0.3); box-shadow: 0 16px 48px rgba(0,0,0,0.8), 0 0 30px var(--cyan-glow);">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 42px; height: 42px; border-radius: 8px; background: rgba(0, 229, 255, 0.12); border: 1px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+            🔐
+          </div>
+          <div>
+            <h3 class="modal-title" style="font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: 0.3px;">
+              I4C Secure Officer &amp; Admin Authentication
+            </h3>
+            <p class="modal-subtitle" style="font-size: 11px; color: var(--text-muted);">
+              Restricted Law Enforcement &amp; System Administration Portal
+            </p>
+          </div>
+        </div>
+        <button id="btn-auth-modal-close" class="modal-close-btn" title="Close Dialog">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 16px;">
+        
+        <!-- Role Selection Tabs -->
+        <div style="display: flex; background: rgba(0,0,0,0.35); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 4px; gap: 4px;">
+          <button type="button" id="auth-tab-investigator" class="mode-toggle-btn active" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 700;">
+            👮 Investigator
+          </button>
+          <button type="button" id="auth-tab-admin" class="mode-toggle-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 700;">
+            ⚙️ System Admin
+          </button>
+        </div>
+
+        <!-- Security Notice Alert -->
+        <div id="auth-modal-banner" style="background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 8px; padding: 10px 12px; font-size: 11px; color: var(--text-secondary); line-height: 1.4; display: flex; gap: 8px; align-items: flex-start;">
+          <span style="font-size: 14px; flex-shrink: 0;">🛡️</span>
+          <span id="auth-banner-text">
+            <strong>Restricted Access:</strong> Law Enforcement Command Center contains classified mule account networks, predictive cash-out telemetry, and statutory Section 94 BNSS requisitions.
+          </span>
+        </div>
+
+        <!-- Error Alert (hidden by default) -->
+        <div id="auth-error-banner" style="display: none; background: rgba(255, 61, 113, 0.12); border: 1px solid var(--coral); border-radius: 8px; padding: 10px 12px; font-size: 11.5px; color: #ff6b81; font-weight: 600; align-items: center; gap: 8px;">
+          <span>⚠️</span>
+          <span id="auth-error-text">Invalid credentials. Please try again.</span>
+        </div>
+
+        <!-- Credentials Form -->
+        <form id="form-auth-login" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="filter-group">
+            <label class="filter-label" style="font-size: 11.5px; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between;">
+              <span>Official ID / Username</span>
+              <span id="auth-username-hint" style="color: var(--cyan); font-size: 10px;">e.g. investigator</span>
+            </label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 12px; top: 10px; color: var(--text-muted); font-size: 14px;">👤</span>
+              <input type="text" id="auth-input-username" class="custom-input" placeholder="Enter officer username..." style="padding-left: 36px; font-size: 13px;" autocomplete="username" required>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label" style="font-size: 11.5px; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between;">
+              <span>Password</span>
+              <span id="auth-password-hint" style="color: var(--cyan); font-size: 10px;">e.g. investigator123</span>
+            </label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 12px; top: 10px; color: var(--text-muted); font-size: 14px;">🔒</span>
+              <input type="password" id="auth-input-password" class="custom-input" placeholder="Enter secure password..." style="padding-left: 36px; padding-right: 36px; font-size: 13px;" autocomplete="current-password" required>
+              <button type="button" id="btn-toggle-password" style="position: absolute; right: 10px; top: 8px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 13px;">👁️</button>
+            </div>
+          </div>
+
+          <!-- Quick Autofill Demo Credentials Section -->
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--border-subtle); border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 10.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">
+              ⚡ Quick Demo Credentials (Click to Autofill):
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" id="btn-demo-investigator" class="btn-secondary-action" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; font-family: var(--font-mono); color: var(--cyan); border-color: rgba(0, 229, 255, 0.3);">
+                👮 investigator / investigator123
+              </button>
+              <button type="button" id="btn-demo-admin" class="btn-secondary-action" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; font-family: var(--font-mono); color: var(--amber); border-color: rgba(255, 179, 0, 0.3);">
+                ⚙️ admin / admin123
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div style="font-size: 10px; color: var(--text-muted); line-height: 1.4; display: flex; align-items: center; gap: 6px;">
+          <span>🔒</span>
+          <span>Access is audited under Section 66 of IT Act 2000. All logins &amp; actions are cryptographically signed.</span>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer" style="padding: 12px 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-end; gap: 10px;">
+        <button id="btn-auth-modal-cancel" type="button" class="btn-secondary-action">
+          Cancel (Back to Citizen Portal)
+        </button>
+        <button id="btn-auth-submit" type="button" class="btn-primary-action" style="padding: 8px 20px; font-size: 12.5px; font-weight: 700; box-shadow: 0 0 16px var(--cyan-glow);">
+          <span>🚀</span> Authenticate &amp; Enter Console
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Global Toast Notification Container -->
   <div id="toast-container" class="toast-container"></div>
 
   <!-- Leaflet GIS Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   
-  <!-- Custom Modules -->
-  <script src="/static/js/map.js"></script>
-  <script src="/static/js/graph.js"></script>
-  <script src="/static/js/tour.js"></script>
-  <script src="/static/js/app.js"></script>
+  <!-- Custom Modules with Cache-Busting Parameters -->
+  <script src="/static/js/map.js?v=2.6.0"></script>
+  <script src="/static/js/graph.js?v=2.6.0"></script>
+  <script src="/static/js/tour.js?v=2.6.0"></script>
+  <script src="/static/js/app.js?v=2.6.0"></script>
 </body>
 </html>

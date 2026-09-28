@@ -6,6 +6,8 @@ Chains audit events with SHA-256 hashes to guarantee provenance and data integri
 import json
 import hashlib
 import datetime
+import threading
+import uuid
 from pathlib import Path
 from typing import Dict, Any, List
 
@@ -14,6 +16,7 @@ AUDIT_LOG_FILE = Path(__file__).resolve().parent.parent / "data" / "audit_ledger
 class AuditLedger:
     def __init__(self):
         self.ledger_file = AUDIT_LOG_FILE
+        self._lock = threading.Lock()
         self._init_ledger()
 
     def _init_ledger(self):
@@ -42,40 +45,41 @@ class AuditLedger:
     def log_event(self, complaint_id: str, action_type: str, actor: str, details: Dict[str, Any]) -> Dict[str, Any]:
         """Logs an event and computes SHA-256 cryptographic chain hash."""
         now = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        prev_hash = self._get_last_hash()
-        
-        event_payload = {
-            "timestamp": now,
-            "complaint_id": complaint_id,
-            "action_type": action_type,
-            "actor": actor,
-            "previous_hash": prev_hash,
-            "details": details
-        }
-        
-        payload_bytes = json.dumps(event_payload, sort_keys=True).encode("utf-8")
-        current_hash = hashlib.sha256(payload_bytes).hexdigest()
+        with self._lock:
+            prev_hash = self._get_last_hash()
+            
+            event_payload = {
+                "timestamp": now,
+                "complaint_id": complaint_id,
+                "action_type": action_type,
+                "actor": actor,
+                "previous_hash": prev_hash,
+                "details": details
+            }
+            
+            payload_bytes = json.dumps(event_payload, sort_keys=True).encode("utf-8")
+            current_hash = hashlib.sha256(payload_bytes).hexdigest()
 
-        event_record = {
-            "event_id": f"EVT-{int(datetime.datetime.now().timestamp() * 1000)}",
-            "timestamp": now,
-            "complaint_id": complaint_id,
-            "action_type": action_type,
-            "actor": actor,
-            "previous_hash": prev_hash,
-            "payload_hash_sha256": current_hash,
-            "details": details
-        }
+            event_record = {
+                "event_id": f"EVT-{uuid.uuid4().hex[:12].upper()}",
+                "timestamp": now,
+                "complaint_id": complaint_id,
+                "action_type": action_type,
+                "actor": actor,
+                "previous_hash": prev_hash,
+                "payload_hash_sha256": current_hash,
+                "details": details
+            }
 
-        try:
-            with open(self.ledger_file, "r", encoding="utf-8") as f:
-                records = json.load(f)
-        except Exception:
-            records = []
+            try:
+                with open(self.ledger_file, "r", encoding="utf-8") as f:
+                    records = json.load(f)
+            except Exception:
+                records = []
 
-        records.append(event_record)
-        with open(self.ledger_file, "w", encoding="utf-8") as f:
-            json.dump(records, f, indent=2)
+            records.append(event_record)
+            with open(self.ledger_file, "w", encoding="utf-8") as f:
+                json.dump(records, f, indent=2)
 
         return event_record
 
@@ -88,13 +92,29 @@ class AuditLedger:
         except Exception:
             return []
 
-    def get_all_events(self, limit: int = 50) -> List[Dict[str, Any]]:
-        """Retrieves recent global audit events."""
+    @property
+    def ledger(self) -> List[Dict[str, Any]]:
+        """Returns all audit ledger events."""
+        try:
+            with open(self.ledger_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []
+
+    def verify_integrity(self) -> bool:
+        """Verifies the cryptographic SHA-256 hash chain of the entire audit ledger."""
         try:
             with open(self.ledger_file, "r", encoding="utf-8") as f:
                 records = json.load(f)
-                return records[-limit:]
+            if not records:
+                return True
+            for i in range(1, len(records)):
+                expected_prev = records[i - 1]["payload_hash_sha256"]
+                actual_prev = records[i]["previous_hash"]
+                if actual_prev != expected_prev:
+                    return False
+            return True
         except Exception:
-            return []
+            return False
 
 audit_ledger = AuditLedger()

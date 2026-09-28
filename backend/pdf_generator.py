@@ -80,7 +80,8 @@ class ForensicPDFGenerator:
 
         # Metadata Summary Box
         cid = complaint.get("complaint_id", "UNKNOWN")
-        now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S IST")
+        IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+        now_str = datetime.datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S IST")
         amount = complaint.get("disputed_amount_inr", 0)
         delay = complaint.get("reporting_delay_minutes", 0)
         scam = complaint.get("scam_category", "UNKNOWN")
@@ -135,13 +136,13 @@ class ForensicPDFGenerator:
         tx_rows = [["Hop", "Bank", "IFSC", "Receiver Account", "UTR", "Amount", "Transit State"]]
         for h in chain:
             tx_rows.append([
-                str(h.get("hop_number")),
-                h.get("bank_name")[:18],
-                h.get("ifsc"),
-                h.get("receiver_account")[:16],
-                h.get("utr_number")[:14],
-                f"INR {h.get('amount_inr'):,.0f}",
-                h.get("branch_state", "")[:12]
+                str(h.get("hop_number", "")),
+                (h.get("bank_name") or "")[:18],
+                h.get("ifsc") or "",
+                (h.get("receiver_account") or "")[:16],
+                (h.get("utr_number") or "")[:14],
+                f"INR {h.get('amount_inr', 0):,.0f}",
+                (h.get("branch_state") or "")[:12]
             ])
         t_tx = Table(tx_rows, colWidths=[25, 95, 75, 95, 85, 75, 90])
         t_tx.setStyle(TableStyle([
