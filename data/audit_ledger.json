@@ -1773,5 +1773,99 @@
       "cfcfrms_req_id": "REQ-CFCFRMS-NCRP-2026-LIVE008",
       "bnss_notice_id": "NOTICE-BNSS94-NCRP-2026-LIVE008"
     }
+  },
+  {
+    "event_id": "EVT-CD2BB679D787",
+    "timestamp": "2026-09-29T13:41:55.999578+00:00",
+    "complaint_id": "NCRP-LIVE-89315",
+    "action_type": "INCIDENT_INGESTED",
+    "actor": "NCRP_GATEWAY",
+    "previous_hash": "8004259c8b71653c062067cf580b857fb113d21599f08ee1c51514decd657f1d",
+    "payload_hash_sha256": "cb027d0edc032ece901b1df695e56dfd83d9e5f639adf5ed99dea570db23b382",
+    "details": {
+      "scam": "DIGITAL_ARREST",
+      "amount": 350000.0,
+      "origin": "Bengaluru Urban, Karnataka",
+      "destination": "North West Delhi, Delhi",
+      "validation_score": 90,
+      "priority_score": 81
+    }
+  },
+  {
+    "event_id": "EVT-8998B2582A3F",
+    "timestamp": "2026-09-29T13:41:56.012537+00:00",
+    "complaint_id": "NCRP-DEMO-2026-01",
+    "action_type": "REQUISITIONS_GENERATED",
+    "actor": "OFFICER_TEST",
+    "previous_hash": "cb027d0edc032ece901b1df695e56dfd83d9e5f639adf5ed99dea570db23b382",
+    "payload_hash_sha256": "5dbee9126872969d71d2923fde4ff6c683269f00a9ef51d1d85237dc41c21545",
+    "details": {
+      "cfcfrms_req_id": "REQ-CFCFRMS-NCRP-DEMO-2026-01",
+      "bnss_notice_id": "NOTICE-BNSS94-NCRP-DEMO-2026-01"
+    }
+  },
+  {
+    "event_id": "EVT-DB5A09874787",
+    "timestamp": "2026-09-29T13:41:56.046585+00:00",
+    "complaint_id": "NCRP-LIVE-89316",
+    "action_type": "INCIDENT_INGESTED",
+    "actor": "NCRP_GATEWAY",
+    "previous_hash": "5dbee9126872969d71d2923fde4ff6c683269f00a9ef51d1d85237dc41c21545",
+    "payload_hash_sha256": "a44efb0f8fc43766529043d16411edb9cf3e289bbca075034e60765b26685f39",
+    "details": {
+      "scam": "INVESTMENT_STOCK_SCAM",
+      "amount": 450000.0,
+      "origin": "Ernakulam, Kerala",
+      "destination": "Patna, Bihar",
+      "validation_score": 100,
+      "priority_score": 85
+    }
+  },
+  {
+    "event_id": "EVT-B3ABBBA335AD",
+    "timestamp": "2026-09-29T13:43:53.319314+00:00",
+    "complaint_id": "NCRP-LIVE-89433",
+    "action_type": "INCIDENT_INGESTED",
+    "actor": "NCRP_GATEWAY",
+    "previous_hash": "a44efb0f8fc43766529043d16411edb9cf3e289bbca075034e60765b26685f39",
+    "payload_hash_sha256": "2e7e57c351006b9a7bb509ebe0b92b9234a2ecb5f3f715f1aa39ee30b4c6f87e",
+    "details": {
+      "scam": "DIGITAL_ARREST",
+      "amount": 350000.0,
+      "origin": "Bengaluru Urban, Karnataka",
+      "destination": "North West Delhi, Delhi",
+      "validation_score": 90,
+      "priority_score": 84
+    }
+  },
+  {
+    "event_id": "EVT-AA9142EB4B8E",
+    "timestamp": "2026-09-29T13:43:53.327889+00:00",
+    "complaint_id": "NCRP-DEMO-2026-01",
+    "action_type": "REQUISITIONS_GENERATED",
+    "actor": "OFFICER_TEST",
+    "previous_hash": "2e7e57c351006b9a7bb509ebe0b92b9234a2ecb5f3f715f1aa39ee30b4c6f87e",
+    "payload_hash_sha256": "cc0bed19ad97bab5723e92427c69e99ab981f60c9bbfad15c1030607b55409d7",
+    "details": {
+      "cfcfrms_req_id": "REQ-CFCFRMS-NCRP-DEMO-2026-01",
+      "bnss_notice_id": "NOTICE-BNSS94-NCRP-DEMO-2026-01"
+    }
+  },
+  {
+    "event_id": "EVT-8EA92B85AE40",
+    "timestamp": "2026-09-29T13:43:53.361006+00:00",
+    "complaint_id": "NCRP-LIVE-89433",
+    "action_type": "INCIDENT_INGESTED",
+    "actor": "NCRP_GATEWAY",
+    "previous_hash": "cc0bed19ad97bab5723e92427c69e99ab981f60c9bbfad15c1030607b55409d7",
+    "payload_hash_sha256": "df87aa0591cf14865018450bde9aa9264cc9ea0212cb495bb850c94899d6232c",
+    "details": {
+      "scam": "INVESTMENT_STOCK_SCAM",
+      "amount": 450000.0,
+      "origin": "Ernakulam, Kerala",
+      "destination": "Patna, Bihar",
+      "validation_score": 100,
+      "priority_score": 85
+    }
   }
 ]

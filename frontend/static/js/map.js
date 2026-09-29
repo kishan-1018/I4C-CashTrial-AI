@@ -47,7 +47,7 @@ class GISMapController {
       });
 
       // Primary Dark Tactical Tile Layer (CartoDB Dark Matter)
-      this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?apikey=${cb1_43gp_1_99287fe311cfb9ce58ec6622}', {
         maxZoom: 19,
         subdomains: 'abcd',
         attribution: '&copy; CartoDB &copy; OpenStreetMap'
@@ -322,7 +322,7 @@ class GISMapController {
 
   renderCorridor(center, radiusKm, name, confidence = 0.79) {
     this.corridorLayer.clearLayers();
-    
+
     const circle = L.circle(center, {
       color: '#00E5FF',
       fillColor: '#00E5FF',
@@ -355,7 +355,7 @@ class GISMapController {
     touchpoints.forEach(tp => {
       const color = this.getTouchpointColor(tp.touchpoint_type);
       const isCCTV = tp.cctv_available;
-      
+
       const iconHtml = `
         <div style="
           background: ${color};
@@ -375,7 +375,7 @@ class GISMapController {
       });
 
       const marker = L.marker(tp.coordinates, { icon: customIcon });
-      
+
       const popupContent = `
         <div style="font-family: sans-serif; font-size: 11.5px; color: #0F172A; min-width: 180px;">
           <b style="color: #0369A1;">${tp.institution_name}</b><br/>
