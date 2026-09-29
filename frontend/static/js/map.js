@@ -14,33 +14,91 @@ class GISMapController {
   constructor(containerId = "map-container") {
     this.containerId = containerId;
     this.map = null;
+    this.tileLayer = null;
     this.trajectoryLayer = null;
     this.corridorLayer = null;
     this.touchpointMarkersLayer = null;
     this.patrolMarker = null;
     this.patrolInterval = null;
+    this.lastTrajectoryData = null;
+    this.lastBounds = null;
   }
 
   init() {
     if (this.map) return;
-    
-    // Default pan-India central view
-    this.map = L.map(this.containerId, {
-      center: [22.5000, 78.9629],
-      zoom: 5,
-      zoomControl: true,
-      attributionControl: false
-    });
+    if (typeof L === 'undefined') {
+      console.warn("Leaflet (L) is not defined yet. Map init deferred.");
+      return;
+    }
 
-    // Dark Tactical Tile Layer (CartoDB Dark Matter)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
-      subdomains: 'abcd'
-    }).addTo(this.map);
+    const container = document.getElementById(this.containerId);
+    if (!container) {
+      console.warn("Map container not found:", this.containerId);
+      return;
+    }
 
-    this.trajectoryLayer = L.layerGroup().addTo(this.map);
-    this.corridorLayer = L.layerGroup().addTo(this.map);
-    this.touchpointMarkersLayer = L.layerGroup().addTo(this.map);
+    try {
+      // Default pan-India central view
+      this.map = L.map(this.containerId, {
+        center: [22.5000, 78.9629],
+        zoom: 5,
+        zoomControl: true,
+        attributionControl: false
+      });
+
+      // Primary Dark Tactical Tile Layer (CartoDB Dark Matter)
+      this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd',
+        attribution: '&copy; CartoDB &copy; OpenStreetMap'
+      }).addTo(this.map);
+
+      // Automatic fallback if CartoDB tiles fail or are blocked in deployed environment
+      let fallbackTriggered = false;
+      this.tileLayer.on('tileerror', (e) => {
+        if (!fallbackTriggered && this.map) {
+          fallbackTriggered = true;
+          console.warn("CartoDB Dark tiles unavailable on current network; failing over to OpenStreetMap tiles.");
+          try {
+            this.map.removeLayer(this.tileLayer);
+            this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(this.map);
+          } catch (err) {
+            console.error("Failed to switch to fallback tile layer:", err);
+          }
+        }
+      });
+
+      this.trajectoryLayer = L.layerGroup().addTo(this.map);
+      this.corridorLayer = L.layerGroup().addTo(this.map);
+      this.touchpointMarkersLayer = L.layerGroup().addTo(this.map);
+    } catch (e) {
+      console.error("Failed to initialize Leaflet GIS map:", e);
+    }
+  }
+
+  /**
+   * Re-evaluates container dimensions and recalculates map bounds.
+   * Crucial when container transitions from display: none to visible.
+   */
+  refresh() {
+    if (!this.map) {
+      this.init();
+    }
+    if (this.map) {
+      try {
+        this.map.invalidateSize();
+        if (this.lastBounds) {
+          this.map.fitBounds(this.lastBounds, { padding: [60, 60], maxZoom: 12 });
+        } else if (this.lastTrajectoryData) {
+          this.renderFullTrajectory(this.lastTrajectoryData);
+        }
+      } catch (err) {
+        console.warn("Map refresh skipped:", err);
+      }
+    }
   }
 
   getTouchpointColor(type) {
@@ -58,8 +116,10 @@ class GISMapController {
    * Directly tracks user input: victim origin -> mule hops -> cash-out destination
    */
   renderFullTrajectory(trajectoryData) {
-    if (!this.map) this.init();
     if (!trajectoryData) return;
+    this.lastTrajectoryData = trajectoryData;
+    if (!this.map) this.init();
+    if (!this.map) return;
 
     this.trajectoryLayer.clearLayers();
     this.corridorLayer.clearLayers();
@@ -240,15 +300,22 @@ class GISMapController {
 
     // 7. Auto-Fit Bounds & Smooth Fly-In
     if (allRoutePoints.length > 0) {
-      const bounds = L.latLngBounds(allRoutePoints);
-      this.map.fitBounds(bounds, { padding: [60, 60], maxZoom: 12 });
+      this.lastBounds = L.latLngBounds(allRoutePoints);
+      const container = document.getElementById(this.containerId);
+      if (container && container.offsetWidth > 0 && container.offsetHeight > 0) {
+        try {
+          this.map.fitBounds(this.lastBounds, { padding: [60, 60], maxZoom: 12 });
 
-      if (dest.coordinates && allRoutePoints.length > 1) {
-        setTimeout(() => {
-          if (this.map) {
-            this.map.flyTo(dest.coordinates, 12, { duration: 1.4 });
+          if (dest.coordinates && allRoutePoints.length > 1) {
+            setTimeout(() => {
+              if (this.map) {
+                this.map.flyTo(dest.coordinates, 12, { duration: 1.4 });
+              }
+            }, 2400);
           }
-        }, 2400);
+        } catch (e) {
+          console.warn("fitBounds deferred until container is visible", e);
+        }
       }
     }
   }

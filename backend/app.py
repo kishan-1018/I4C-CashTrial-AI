@@ -57,14 +57,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# No-Cache Middleware for frontend templates & static assets
+# Security + No-Cache Middleware for frontend templates & static assets
 @app.middleware("http")
-async def add_no_cache_headers(request: Request, call_next):
+async def add_security_headers(request: Request, call_next):
     response = await call_next(request)
     if request.url.path == "/" or request.url.path.startswith("/static/"):
+        # Prevent browser caching of app files
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
+
+        # Content Security Policy:
+        # Allows Leaflet (unpkg CDN), CartoDB map tiles, Google Fonts, and WebSocket live stream.
+        # Without this, browsers block external resources on HTTPS-deployed sites.
+        csp = (
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; "
+            "style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://cdn.jsdelivr.net; "
+            "font-src 'self' https://fonts.gstatic.com; "
+            "img-src 'self' data: blob: "
+                "https://*.basemaps.cartocdn.com "
+                "https://basemaps.cartocdn.com "
+                "https://*.tile.openstreetmap.org "
+                "https://*.openstreetmap.org "
+                "https://tile.openstreetmap.org "
+                "https://*.tile.opentopomap.org "
+                "https://unpkg.com; "
+            "connect-src 'self' wss: ws: "
+                "https://*.basemaps.cartocdn.com "
+                "https://basemaps.cartocdn.com "
+                "https://*.openstreetmap.org "
+                "https://unpkg.com; "
+            "worker-src blob:; "
+            "frame-ancestors 'none';"
+        )
+        response.headers["Content-Security-Policy"] = csp
+
+        # Additional security headers
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     return response
 
 # Mount Static Files & Templates

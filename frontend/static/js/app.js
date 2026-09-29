@@ -211,12 +211,20 @@ class DashboardApp {
     } else if (role === 'ADMIN') {
       this.loadAdminData();
     } else if (role === 'INVESTIGATOR') {
-      // Re-invalidate map size after switching back
+      // Re-invalidate map size and restore trajectory after switching to Investigator view
       setTimeout(() => {
-        if (window.gisMap && window.gisMap.map) {
-          window.gisMap.map.invalidateSize();
+        if (window.gisMap) {
+          window.gisMap.refresh();
         }
       }, 100);
+      setTimeout(() => {
+        if (window.gisMap) {
+          window.gisMap.refresh();
+          if (this.currentAnalysis && this.currentAnalysis.decision_support && this.currentAnalysis.decision_support.trajectory) {
+            window.gisMap.renderFullTrajectory(this.currentAnalysis.decision_support.trajectory);
+          }
+        }
+      }, 350);
     }
   }
 
@@ -1195,6 +1203,9 @@ class DashboardApp {
       graphEl.style.display = "none";
       tabMap.classList.add("active");
       tabGraph.classList.remove("active");
+      if (window.gisMap) {
+        setTimeout(() => window.gisMap.refresh(), 50);
+      }
     } else {
       mapEl.style.display = "none";
       graphEl.style.display = "block";
