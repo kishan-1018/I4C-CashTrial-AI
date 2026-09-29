@@ -47,7 +47,7 @@ class GISMapController {
       });
 
       // Primary Dark Tactical Tile Layer (CartoDB Dark Matter)
-      this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?apikey=${cb1_43gp_1_99287fe311cfb9ce58ec6622}', {
+      this.tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=cb1_43gp_1_99287fe311cfb9ce58ec6622', {
         maxZoom: 19,
         subdomains: 'abcd',
         attribution: '&copy; CartoDB &copy; OpenStreetMap'
